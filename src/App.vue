@@ -1,19 +1,22 @@
 <template>
   <el-config-provider namespace="ep">
-    <BaseHeader />
-    <div style="display: flex">
-      <BaseSide />
-      <div>
-        <img alt="Vue logo" class="element-plus-logo" src="./assets/logo.png" />
-        <HelloWorld msg="Hello Vue 3.0 + Element Plus + Vite" />
-      </div>
-    </div>
+    <RouterView></RouterView>
   </el-config-provider>
 </template>
 
 <style>
+html,
+body {
+  overflow: hidden;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
 #app {
-  text-align: center;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
   color: var(--ep-text-color-primary);
 }
 
