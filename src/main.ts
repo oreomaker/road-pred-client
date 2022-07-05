@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import { createPinia } from "pinia";
 import router from "./router";
+import * as ElementPlusIconVue from "@element-plus/icons-vue";
 // import "~/styles/element/index.scss";
 
 // import ElementPlus from "element-plus";
@@ -18,6 +19,10 @@ import "element-plus/theme-chalk/src/message.scss"
 
 const app = createApp(App);
 // app.use(ElementPlus);
+for(const [key, component] of Object.entries(ElementPlusIconVue)){
+    app.component(key, component);
+}
+
 app.use(createPinia());
 app.use(router);
 app.mount("#app");

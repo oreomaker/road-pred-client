@@ -24,21 +24,17 @@
 	</div>
 </template>
 
-<script>
-import { User, School } from "@element-plus/icons-vue"
+<script setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
-export default {
-	data() {
-		return {};
+const route = useRoute();
+
+const toIndex = computed({
+	get() {
+		return route.path.split("/")[1];
 	},
-	computed: {
-		toIndex() {
-			// 根据路径绑定到对应的二级菜单，防止页面刷新重新跳回第一个
-			return this.$route.path.split("/")[2];
-		},
-	},
-	methods: {},
-};
+})
 </script>
 
 <style scoped>

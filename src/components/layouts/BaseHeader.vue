@@ -1,7 +1,7 @@
 <template>
 	<!-- 页面头部部分 -->
 	<div class="header">
-		<div class="logo">&nbsp;Logistic Management</div>
+		<div class="logo">&nbsp;Road Accident Predict System</div>
 		<!-- 水平一级菜单 -->
 		<div style="float: left">
 			<el-menu class="tab-menu" mode="horizontal" text-color="black" active-text-color="#3989fa"
@@ -63,10 +63,8 @@ export default {
 			return "/" + this.$route.path.split("/")[1];
 		},
 		itemList() {
-			var role = useAuthStore().role;
-			console.log(role + " store");
 			return [
-				{ path: "/" + role, title: "首页" },
+				{ path: "/", title: "首页" },
 				{ path: "/userinfo", title: "个人信息" },
 				{ path: "/about", title: "关于" },
 			];
@@ -95,7 +93,8 @@ export default {
 		},
 	},
 	mounted() {
-		this.username = useAuthStore().username;
+		// this.username = useAuthStore().username;
+		this.username = "aaa";
 	},
 };
 </script>

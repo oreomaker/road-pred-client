@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import { Lock, User } from "@element-plus/icons-vue"
+import { Lock, User } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "~/stores/store";
 import axios from "axios";
