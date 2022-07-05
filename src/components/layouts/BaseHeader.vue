@@ -64,7 +64,7 @@ export default {
 		},
 		itemList() {
 			return [
-				{ path: "/", title: "首页" },
+				{ path: "/home", title: "首页" },
 				{ path: "/userinfo", title: "个人信息" },
 				{ path: "/about", title: "关于" },
 			];
@@ -72,9 +72,17 @@ export default {
 	},
 	methods: {
 		handleSelect(path) {
-			this.$router.push({
-				path: path,
-			});
+			if(path == "/home"){
+				console.log(path);
+				this.$router.push({
+					path: "/home/map",
+				});
+			}
+			else{
+				this.$router.push({
+					path: path,
+				});
+			}
 		},
 		handleCommand(command) {
 			if (command == "log-out") {

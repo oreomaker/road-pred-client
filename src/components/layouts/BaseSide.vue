@@ -3,22 +3,18 @@
 	<div class="sidebar">
 		<el-menu class="sidebar-el-menu" :default-active="toIndex" background-color="#fff" text-color="black" router>
 			<el-menu-item index="map">
-				<el-icon>
-					<User />
-				</el-icon>
+				<el-icon><TrendCharts /></el-icon>
 				<template #title> &nbsp;事故预测 </template>
 			</el-menu-item>
-			<el-menu-item index="courier">
-				<el-icon>
-					<School />
-				</el-icon>
-				<template #title> &nbsp;快递员管理 </template>
+			<el-menu-item index="history">
+				<el-icon><List /></el-icon>
+				<template #title> &nbsp;历史数据 </template>
 			</el-menu-item>
-			<el-menu-item index="cargo">
+			<el-menu-item index="user">
 				<el-icon>
 					<School />
 				</el-icon>
-				<template #title> &nbsp;订单管理 </template>
+				<template #title> &nbsp;用户管理 </template>
 			</el-menu-item>
 		</el-menu>
 	</div>
@@ -32,7 +28,7 @@ const route = useRoute();
 
 const toIndex = computed({
 	get() {
-		return route.path.split("/")[1];
+		return route.path.split("/")[2];
 	},
 })
 </script>

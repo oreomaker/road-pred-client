@@ -7,11 +7,7 @@
 <script>
 export default {};
 </script>
-<style>
-body {
-    background-color: aliceblue;
-}
-
+<style scoped>
 .login-wrapper {
     height: 300px;
     width: 700px;

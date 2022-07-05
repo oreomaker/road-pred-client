@@ -64,7 +64,7 @@ export default {
 }
 </script>
 <style scoped>
-.ep-header{
+.ep-header {
     padding: 0;
 }
 .map-container {

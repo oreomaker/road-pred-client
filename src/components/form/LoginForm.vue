@@ -26,7 +26,7 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	// send username and pwd
 
 	// redirect
-	router.push('/map');
+	router.push('/home/map');
 };
 </script>
 
