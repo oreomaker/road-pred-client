@@ -16,6 +16,11 @@ const router = createRouter({
       name: "login",
       component: () => import("../views/LoginView.vue"),
     },
+    {
+      path: "/map",
+      name: "map",
+      component: () => import("../views/MapView.vue"),
+    },
   ],
 });
 
@@ -26,7 +31,7 @@ router.beforeEach(async (to, from) => {
   const isAuthenticated = store.token != "";
   if (!isAuthenticated && to.name !== "login") {
     // 将用户重定向到登录页面
-    return { path: "/login" };
+    // return { path: "/login" };
   }
 
   if (isAuthenticated && to.meta.auth == true) {

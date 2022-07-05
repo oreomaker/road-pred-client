@@ -11,7 +11,6 @@ const formRef = ref<FormInstance>();
 const form = reactive({
   username: "",
   phone: "",
-  isRemember: false,
 });
 
 const rules = reactive<FormRules>({
