@@ -1,59 +1,80 @@
 <template>
-  <el-menu
-    default-active="2"
-    class="el-menu-vertical-demo"
-    :collapse="isCollapse"
-    @open="handleOpen"
-    @close="handleClose"
-  >
-    <el-sub-menu index="1">
-      <template #title>
-        <el-icon><location /></el-icon>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item-group>
-        <template #title><span>Group One</span></template>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title><span>item four</span></template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>Navigator Two</template>
-    </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <el-icon><document /></el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
-      <template #title>Navigator Four</template>
-    </el-menu-item>
-  </el-menu>
+	<!-- 左侧二级菜单栏的组件封装 -->
+	<div class="sidebar">
+		<el-menu class="sidebar-el-menu" :default-active="toIndex" background-color="#fff" text-color="black" router>
+			<el-menu-item index="map">
+				<el-icon>
+					<User />
+				</el-icon>
+				<template #title> &nbsp;事故预测 </template>
+			</el-menu-item>
+			<el-menu-item index="courier">
+				<el-icon>
+					<School />
+				</el-icon>
+				<template #title> &nbsp;快递员管理 </template>
+			</el-menu-item>
+			<el-menu-item index="cargo">
+				<el-icon>
+					<School />
+				</el-icon>
+				<template #title> &nbsp;订单管理 </template>
+			</el-menu-item>
+		</el-menu>
+	</div>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import {
-  Location,
-  Document,
-  Menu as IconMenu,
-  Setting,
-} from '@element-plus/icons-vue'
+<script>
+import { User, School } from "@element-plus/icons-vue"
 
-const isCollapse = ref(true)
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
+export default {
+	data() {
+		return {};
+	},
+	computed: {
+		toIndex() {
+			// 根据路径绑定到对应的二级菜单，防止页面刷新重新跳回第一个
+			return this.$route.path.split("/")[2];
+		},
+	},
+	methods: {},
+};
 </script>
 
+<style scoped>
+/* 左侧菜单栏定位和位置大小设定 */
+.sidebar {
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.sidebar::-webkit-scrollbar {
+	width: 0;
+}
+
+.sidebar-el-menu {
+	max-width: 400px;
+}
+
+.sidebar>ul {
+	height: 100%;
+}
+
+/* 左侧二级菜单项的样式 */
+.el-menu-item {
+	font-size: 14px !important;
+	padding-left: 35px !important;
+}
+
+/* 左侧二级菜单选中时的样式 */
+.el-menu-item.is-active {
+	color: white !important;
+	background: #3989fa !important;
+}
+
+.el-menu-item,
+.el-submenu__title {
+	height: 50px !important;
+	line-height: 50px !important;
+}
+</style>

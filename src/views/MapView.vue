@@ -3,9 +3,14 @@
         <el-header>
             <base-header />
         </el-header>
-        <el-main>
-            <div id="localMap"></div>
-        </el-main>
+        <el-container class="body-container">
+            <el-aside width="200px">
+                <BaseSide></BaseSide>
+            </el-aside>
+            <el-main>
+                <div id="localMap"></div>
+            </el-main>
+        </el-container>
     </el-container>
 </template>
 <script>
@@ -59,9 +64,12 @@ export default {
 }
 </script>
 <style scoped>
+.ep-header{
+    padding: 0;
+}
 .map-container {
     width: 100%;
     height: 400px;
     border: 1px solid #000;
-  }
+}
 </style>
