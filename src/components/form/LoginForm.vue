@@ -13,13 +13,12 @@ const form = reactive({
   phone: "",
   isRemember: false,
 });
-const role = ref(1);
 
 const rules = reactive<FormRules>({
   username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
   phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
 });
-//"120105200606013298"
+
 const submitForm = async (fromEl: FormInstance | undefined) => {
   if (!fromEl) return;
 
@@ -53,18 +52,6 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
           </template>
         </el-input>
       </el-form-item>
-
-      <el-form-item label="角色">
-        <el-radio-group v-model="role">
-          <el-radio :label="1">用户</el-radio>
-          <el-radio :label="2">快递员</el-radio>
-          <el-radio :label="3">管理员</el-radio>
-        </el-radio-group>
-      </el-form-item>
-
-      <!-- <el-form-item label="记住我" prop="isRemember">
-        <el-switch v-model="form.isRemember"></el-switch>
-      </el-form-item> -->
 
       <el-form-item>
         <el-button type="primary" @click="submitForm(formRef)">登录</el-button>

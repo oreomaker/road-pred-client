@@ -15,8 +15,6 @@ declare module '@vue/runtime-core' {
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
-    ElRadio: typeof import('element-plus/es')['ElRadio']
-    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     ImageSwiper: typeof import('./components/static/ImageSwiper.vue')['default']
     LoginForm: typeof import('./components/form/LoginForm.vue')['default']
