@@ -9,18 +9,40 @@
             </el-aside>
             <el-main>
                 <div id="localMap"></div>
+
+                <el-card class="box-card">
+                    <div class="block item">
+                        <h1 class="demonstration">Date pisker</h1>
+                        <div class="demonstration">Value：{{ datetime }}</div>
+                        <el-date-picker v-model="datetime" type="datetime" placeholder="Pick a Date"
+                            format="YYYY/MM/DD hh:mm:ss" value-format="YYYY-MM-DD h:m:s a" />
+                    </div>
+                    <div class="item">
+                        <h1>Selected Location:</h1>
+                        <div>lngNum: {{ lngNum }}</div>
+                        <div>latNum: {{ latNum }}</div>
+                    </div>
+                    <el-button class="item" @click="getPredictResult" type="primary">预测</el-button>
+                    <div class="item">
+                        <h1>Predict result:</h1>
+                        <div>{{ predResult }}</div>
+                    </div>
+                </el-card>
             </el-main>
         </el-container>
     </el-container>
 </template>
 <script>
 import initBingMap from '~/api/initMap.js'
+
 export default {
     data() {
         return {
             lngNum: null, // 经度
             latNum: null, // 纬度
             map: null,
+            datetime: '',
+            predResult: 1,
         }
     },
     created() {
@@ -83,7 +105,10 @@ export default {
                 color: 'red', // 纯色图钉
             });
             _this.map.entities.push(pin);
-        }
+        },
+        getPredictResult() {
+            console.log('predict');
+        },
     }
 }
 </script>
@@ -92,9 +117,40 @@ export default {
     padding: 0;
 }
 
-.map-container {
-    width: 100%;
-    height: 400px;
-    border: 1px solid #000;
+.ep-main {
+    display: flex;
+    flex-direction: row;
+}
+
+#localMap {
+    width: 60%;
+}
+
+.box-card {
+    width: 40%;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+.item {
+    margin-bottom: 18px;
+}
+
+.demo-datetime-picker .block {
+    padding: 30px 0;
+    text-align: center;
+    border-right: solid 1px var(--el-border-color);
+    flex: 1;
+}
+
+.demo-datetime-picker .block:last-child {
+    border-right: none;
+}
+
+.demo-datetime-picker .demonstration {
+    display: block;
+    color: var(--el-text-color-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 </style>

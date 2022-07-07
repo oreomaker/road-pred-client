@@ -21,6 +21,7 @@
 				<!-- 用户名下拉菜单 -->
 				<el-dropdown class="user-name" trigger="hover" @command="handleCommand">
 					<span class="el-dropdown-link">
+						&nbsp;
 						{{ username }}
 						<el-icon>
 							<ArrowDown />
@@ -102,7 +103,7 @@ export default {
 	},
 	mounted() {
 		// this.username = useAuthStore().username;
-		this.username = "aaa";
+		this.username = "admin";
 	},
 };
 </script>
