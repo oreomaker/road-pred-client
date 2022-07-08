@@ -27,12 +27,15 @@ declare module '@vue/runtime-core' {
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    FindPwdForm: typeof import('./components/form/FindPwdForm.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     ImageSwiper: typeof import('./components/static/ImageSwiper.vue')['default']
     LoginForm: typeof import('./components/form/LoginForm.vue')['default']
+    RegisterForm: typeof import('./components/form/RegisterForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserInfoCard: typeof import('./components/cards/UserInfoCard.vue')['default']
+    ValidateCaptcha: typeof import('./components/static/ValidateCaptcha.vue')['default']
   }
 }
 

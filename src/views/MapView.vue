@@ -9,20 +9,43 @@
             </el-aside>
             <el-main>
                 <div id="localMap"></div>
+
+                <el-card class="box-card">
+                    <div class="block item">
+                        <h1 class="demonstration">Date pisker</h1>
+                        <div class="demonstration">Value：{{ datetime }}</div>
+                        <el-date-picker v-model="datetime" type="datetime" placeholder="Pick a Date"
+                            format="YYYY/MM/DD hh:mm:ss" value-format="YYYY-MM-DD h:m:s a" />
+                    </div>
+                    <div class="item">
+                        <h1>Selected Location:</h1>
+                        <div>lngNum: {{ lngNum }}</div>
+                        <div>latNum: {{ latNum }}</div>
+                    </div>
+                    <el-button class="item" @click="getPredictResult" type="primary">预测</el-button>
+                    <div class="item">
+                        <h1>Predict result:</h1>
+                        <div>{{ predResult }}</div>
+                    </div>
+                </el-card>
             </el-main>
         </el-container>
     </el-container>
 </template>
 <script>
 import initBingMap from '~/api/initMap.js'
+
 export default {
     data() {
         return {
             lngNum: null, // 经度
             latNum: null, // 纬度
+            map: null,
+            datetime: '',
+            predResult: 1,
         }
     },
-    created: function () {
+    created() {
         let _this = this;
         initBingMap.init()
             .then((Microsoft) => {
@@ -34,13 +57,16 @@ export default {
     methods: {
         initMap() {
             let _this = this;
-            let map = new Microsoft.Maps.Map('#localMap', {
-                credentials: 'Aoqy2mXrSBghBTiA1u_uB6zmWqcHfdVJn4Jq7M7l87XgYlA7I0ZLSH5AlR19LzdY'
+            _this.map = new Microsoft.Maps.Map('#localMap', {
+                credentials: 'Aoqy2mXrSBghBTiA1u_uB6zmWqcHfdVJn4Jq7M7l87XgYlA7I0ZLSH5AlR19LzdY',
+                center: new Microsoft.Maps.Location(40.76737744930541, -73.98389818892902),
             });
-            Microsoft.Maps.Events.addHandler(map, 'click', _this.getClickLocation);
+            Microsoft.Maps.Events.addHandler(_this.map, 'click', _this.getClickLocation);
+            Microsoft.Maps.Events.addHandler(_this.map, 'rightclick', _this.rightClickMark);
         },
         getClickLocation(e) {
             //若点击到地图的标记上，而非地图上
+            console.log(e);
             let [_this, loc] = [this, null];
             if (e.targetType == 'pushpin') {
                 loc = e.target.getLocation();
@@ -50,7 +76,6 @@ export default {
                 var point = new Microsoft.Maps.Point(e.pageX, e.pageY);
                 loc = e.target.tryPixelToLocation(point, Microsoft.Maps.PixelReference.page);
             }
-            console.log(loc.latitude + ", " + loc.longitude);
             console.log(loc);
             _this.lngNum = loc.longitude;
             _this.latNum = loc.latitude;
@@ -60,6 +85,30 @@ export default {
             }
             this.$emit('getLocationNums', data);
         },
+        rightClickMark(e) {
+            console.log(e);
+            let [_this, loc] = [this, null];
+            if (e.targetType == 'pushpin') {
+                loc = e.target.getLocation();
+            }
+            //若点击到地图上
+            else {
+                var point = new Microsoft.Maps.Point(e.pageX, e.pageY);
+                loc = e.target.tryPixelToLocation(point, Microsoft.Maps.PixelReference.page);
+            }
+            //Add the pushpin to the map
+            var pin = new Microsoft.Maps.Pushpin(loc, {
+                // demo_1
+                title: 'Microsoft', // 图钉的标题
+                subTitle: 'City Center', // 图钉主体文字
+                text: '1', // 图钉内的文字
+                color: 'red', // 纯色图钉
+            });
+            _this.map.entities.push(pin);
+        },
+        getPredictResult() {
+            console.log('predict');
+        },
     }
 }
 </script>
@@ -67,9 +116,41 @@ export default {
 .ep-header {
     padding: 0;
 }
-.map-container {
-    width: 100%;
-    height: 400px;
-    border: 1px solid #000;
+
+.ep-main {
+    display: flex;
+    flex-direction: row;
+}
+
+#localMap {
+    width: 60%;
+}
+
+.box-card {
+    width: 40%;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+.item {
+    margin-bottom: 18px;
+}
+
+.demo-datetime-picker .block {
+    padding: 30px 0;
+    text-align: center;
+    border-right: solid 1px var(--el-border-color);
+    flex: 1;
+}
+
+.demo-datetime-picker .block:last-child {
+    border-right: none;
+}
+
+.demo-datetime-picker .demonstration {
+    display: block;
+    color: var(--el-text-color-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 </style>

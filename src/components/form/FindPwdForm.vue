@@ -17,7 +17,7 @@ const form = reactive({
 
 const rules = reactive<FormRules>({
 	username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-	password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+	password: [{ required: true, message: "请输入验证码", trigger: "blur" }],
 });
 
 const submitForm = async (fromEl: FormInstance | undefined) => {
@@ -29,15 +29,22 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	router.push('/home/map');
 };
 
-const register = () => {
-	router.push('/register');
-};
+const goBack = () => {
+	router.go(-1);
+}
 </script>
 
 <template>
 	<el-card shadow="always">
 		<template #header>
-			<span>车辆事故等级预测系统</span>
+			<div class="card-header">
+				<span>修改密码</span>
+				<el-button @click="goBack" size="small">
+					<el-icon>
+						<Back />
+					</el-icon>返回
+				</el-button>
+			</div>
 		</template>
 		<el-form ref="formRef" :model="form" :rules="rules" label-position="right" label-width="80px">
 			<el-form-item label="用户名" prop="username">
@@ -50,8 +57,8 @@ const register = () => {
 				</el-input>
 			</el-form-item>
 
-			<el-form-item label="密码" prop="password">
-				<el-input v-model="form.password" placeholder="请输入密码">
+			<el-form-item label="验证码" prop="password">
+				<el-input v-model="form.password" placeholder="请输入验证码">
 					<template #suffix>
 						<el-icon>
 							<Lock />
@@ -61,16 +68,16 @@ const register = () => {
 			</el-form-item>
 
 			<el-form-item>
-				<router-link to="/forget-pwd">忘记密码？</router-link>
-			</el-form-item>
-
-			<el-form-item>
-				<el-button type="primary" @click="submitForm(formRef)">登录</el-button>
-				<el-button @click="register">注册</el-button>
+				<el-button type="primary" @click="submitForm(formRef)">找回密码</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>
 </template>
 
 <style scoped>
+.card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 </style>

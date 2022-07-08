@@ -7,7 +7,8 @@
 <style>
 html,
 body {
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin: 0;
     height: 100%;
     width: 100%;

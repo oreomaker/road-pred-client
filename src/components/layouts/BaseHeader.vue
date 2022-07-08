@@ -21,6 +21,7 @@
 				<!-- 用户名下拉菜单 -->
 				<el-dropdown class="user-name" trigger="hover" @command="handleCommand">
 					<span class="el-dropdown-link">
+						&nbsp;
 						{{ username }}
 						<el-icon>
 							<ArrowDown />
@@ -28,7 +29,7 @@
 					</span>
 					<template #dropdown>
 						<el-dropdown-menu>
-							<el-dropdown-item command="change-pw">
+							<el-dropdown-item command="forget-pwd">
 								<el-icon>
 									<Lock />
 								</el-icon>
@@ -92,17 +93,17 @@ export default {
 				this.$router.push({
 					path: "/login",
 				});
-			} else if (command == "change-pw") {
+			} else if (command == "forget-pwd") {
 				// clear the auth store
 				this.$router.push({
-					path: "/change-pw",
+					path: "/forget-pwd",
 				});
 			}
 		},
 	},
 	mounted() {
 		// this.username = useAuthStore().username;
-		this.username = "aaa";
+		this.username = "admin";
 	},
 };
 </script>
