@@ -16,7 +16,7 @@
 			</el-menu-item>
 			<el-menu-item index="user">
 				<el-icon>
-					<User />
+					<UserFilled />
 				</el-icon>
 				<template #title> &nbsp;用户管理 </template>
 			</el-menu-item>
