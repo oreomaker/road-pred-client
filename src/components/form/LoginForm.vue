@@ -28,6 +28,10 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	// redirect
 	router.push('/home/map');
 };
+
+const register = () => {
+	router.push('/register');
+};
 </script>
 
 <template>
@@ -57,12 +61,12 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 			</el-form-item>
 
 			<el-form-item>
-				<router-link to="/forget">忘记密码？</router-link>
+				<router-link to="/forget-pwd">忘记密码？</router-link>
 			</el-form-item>
 
 			<el-form-item>
 				<el-button type="primary" @click="submitForm(formRef)">登录</el-button>
-				<el-button>注册</el-button>
+				<el-button @click="register">注册</el-button>
 			</el-form-item>
 		</el-form>
 	</el-card>

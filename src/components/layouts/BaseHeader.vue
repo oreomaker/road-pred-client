@@ -29,7 +29,7 @@
 					</span>
 					<template #dropdown>
 						<el-dropdown-menu>
-							<el-dropdown-item command="change-pw">
+							<el-dropdown-item command="forget-pwd">
 								<el-icon>
 									<Lock />
 								</el-icon>
@@ -93,10 +93,10 @@ export default {
 				this.$router.push({
 					path: "/login",
 				});
-			} else if (command == "change-pw") {
+			} else if (command == "forget-pwd") {
 				// clear the auth store
 				this.$router.push({
-					path: "/change-pw",
+					path: "/forget-pwd",
 				});
 			}
 		},

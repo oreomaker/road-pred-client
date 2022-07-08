@@ -17,9 +17,14 @@ const router = createRouter({
             component: () => import("../views/LoginView.vue"),
         },
         {
-            path: "/forget",
-            name: "forget",
+            path: "/forget-pwd",
+            name: "forget-pwd",
             component: () => import("../views/ForgetPwdView.vue"),
+        },
+        {
+            path: "/register",
+            name: "register",
+            component: () => import("../views/RegisterView.vue"),
         },
         {
             path: "/userinfo",

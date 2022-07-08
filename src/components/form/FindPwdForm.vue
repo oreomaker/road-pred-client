@@ -30,7 +30,7 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 };
 
 const goBack = () => {
-	router.push('/login');
+	router.go(-1);
 }
 </script>
 
@@ -38,7 +38,7 @@ const goBack = () => {
 	<el-card shadow="always">
 		<template #header>
 			<div class="card-header">
-				<span>找回密码</span>
+				<span>修改密码</span>
 				<el-button @click="goBack" size="small">
 					<el-icon>
 						<Back />
