@@ -3,16 +3,20 @@
 	<div class="sidebar">
 		<el-menu class="sidebar-el-menu" :default-active="toIndex" background-color="#fff" text-color="black" router>
 			<el-menu-item index="map">
-				<el-icon><TrendCharts /></el-icon>
+				<el-icon>
+					<TrendCharts />
+				</el-icon>
 				<template #title> &nbsp;事故预测 </template>
 			</el-menu-item>
 			<el-menu-item index="history">
-				<el-icon><List /></el-icon>
+				<el-icon>
+					<List />
+				</el-icon>
 				<template #title> &nbsp;历史数据 </template>
 			</el-menu-item>
 			<el-menu-item index="user">
 				<el-icon>
-					<School />
+					<User />
 				</el-icon>
 				<template #title> &nbsp;用户管理 </template>
 			</el-menu-item>

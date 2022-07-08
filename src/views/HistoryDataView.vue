@@ -1,17 +1,17 @@
 <template>
-  <el-container>
-    <el-header>
-        <base-header />
-    </el-header>
-    <el-container class="body-container">
-        <el-aside width="200px">
-            <BaseSide></BaseSide>
-        </el-aside>
-        <el-main>
-          <CalendarChart></CalendarChart>
-        </el-main>
+    <el-container>
+        <el-header>
+            <base-header />
+        </el-header>
+        <el-container class="body-container">
+            <el-aside width="200px">
+                <BaseSide></BaseSide>
+            </el-aside>
+            <el-main>
+                <CalendarChart></CalendarChart>
+            </el-main>
+        </el-container>
     </el-container>
-  </el-container>
 </template>
 
 <script setup lang="ts">
@@ -19,11 +19,20 @@
 </script>
 
 <style>
+.ep-header {
+    padding: 0;
+}
+
+.ep-main {
+    display: flex;
+    flex-direction: row;
+}
+
 .month-container {
-  padding: 20px 0;
+    padding: 20px 0;
 }
 
 .monthTip {
-  margin-left: 40px;
+    margin-left: 40px;
 }
 </style>

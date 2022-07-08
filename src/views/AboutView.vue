@@ -18,7 +18,9 @@
     </el-container>
 </template>
 <script>
-
+export default{
+    
+}
 </script>
 <style scoped>
 .ep-header {
