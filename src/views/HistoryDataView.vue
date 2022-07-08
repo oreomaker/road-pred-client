@@ -8,7 +8,7 @@
                 <BaseSide></BaseSide>
             </el-aside>
             <el-main>
-                user manage
+                <CalendarChart></CalendarChart>
             </el-main>
         </el-container>
     </el-container>
@@ -26,5 +26,13 @@
 .ep-main {
     display: flex;
     flex-direction: row;
+}
+
+.month-container {
+    padding: 20px 0;
+}
+
+.monthTip {
+    margin-left: 40px;
 }
 </style>
