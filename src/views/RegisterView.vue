@@ -7,8 +7,8 @@ export default {};
 <style scoped>
 .form {
     position: absolute;
-    top: 100px;
     overflow-y: auto;
+    margin: auto;
 }
 
 </style>
