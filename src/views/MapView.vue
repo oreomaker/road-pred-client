@@ -8,8 +8,9 @@
                 <BaseSide></BaseSide>
             </el-aside>
             <el-main>
+                <!-- bing map component -->
                 <div id="localMap"></div>
-
+                <!-- operating panel -->
                 <el-card class="box-card">
                     <div class="block item">
                         <h1 class="demonstration">Date pisker</h1>
@@ -27,6 +28,10 @@
                         <h1>Predict result:</h1>
                         <div>{{ predResult }}</div>
                     </div>
+
+                    <el-button @click="testNav">navigate</el-button>
+                    <el-button @click="clearNav">clearNav</el-button>
+                    <div style="margin-top: 10px;" id="printoutPanel"></div>
                 </el-card>
             </el-main>
         </el-container>
@@ -43,6 +48,7 @@ export default {
             map: null,
             datetime: '',
             predResult: 1,
+            directionsManager: null,
         }
     },
     created() {
@@ -109,6 +115,27 @@ export default {
         getPredictResult() {
             console.log('predict');
         },
+        testNav() {
+            console.log('test');
+            Microsoft.Maps.loadModule('Microsoft.Maps.Directions', () => {
+                this.directionsManager = new Microsoft.Maps.Directions.DirectionsManager(this.map);
+                // Set Route Mode to driving
+                this.directionsManager.setRequestOptions({ routeMode: Microsoft.Maps.Directions.RouteMode.driving });
+                var waypoint1 = new Microsoft.Maps.Directions.Waypoint({ address: 'Redmond', location: new Microsoft.Maps.Location(47.67683029174805, -122.1099624633789) });
+                var waypoint2 = new Microsoft.Maps.Directions.Waypoint({ address: 'Seattle', location: new Microsoft.Maps.Location(47.59977722167969, -122.33458709716797) });
+                this.directionsManager.addWaypoint(waypoint1);
+                this.directionsManager.addWaypoint(waypoint2);
+                // Set the element in which the itinerary will be rendered
+                this.directionsManager.setRenderOptions({ itineraryContainer: document.getElementById('printoutPanel') });
+                this.directionsManager.calculateDirections();
+            });
+        },
+        clearNav() {
+            this.directionsManager.clearDisplay();
+            var allWaypoints = this.directionsManager.getAllWaypoints();
+            var numberWaypoints = allWaypoints.length;
+            document.getElementById('printoutPanel').innerHTML = numberWaypoints + ' waypoints in DirectionsManager';
+        }
     }
 }
 </script>

@@ -1,14 +1,11 @@
 <template>
-    <div class="month-container">
-        <span class="monthTip">请选择时间：</span>
-        <el-date-picker
-          v-model="year_month"
-          type="month"
-          placeholder="Pick a month"
-          :default-value="year_month"
-        />
+    <div class="chart-wrapper calendar">
+        <div class="month-container">
+            <span class="monthTip">请选择时间：</span>
+            <el-date-picker v-model="year_month" type="month" placeholder="Pick a month" :default-value="year_month" />
+        </div>
+        <v-charts :option="option" @click="handleDayClicked"></v-charts>
     </div>
-    <v-charts :option="option" @click="handleDayClicked"></v-charts>
 </template>
   
 <script setup lang="ts">
@@ -123,7 +120,7 @@ const option = ref({
             coordinateSystem: 'calendar',
             label: {
                 show: true,
-                formatter: function (params) {
+                formatter: function (params: { value: unknown[]; }) {
                     return echarts.format.formatTime('dd', params.value[0]);
                 },
                 offset: [-10, -10],
@@ -142,7 +139,7 @@ const option = ref({
 });
 
 //日期点击处理函数
-function handleDayClicked(params) {
+function handleDayClicked(params: { componentSubType: string; data: (string | number | Date)[]; }) {
     if (params.componentSubType === 'heatmap') {
         day.value = new Date(params.data[0]).getDate().toString()
         console.log(day.value)
@@ -151,6 +148,15 @@ function handleDayClicked(params) {
 
 </script>
 
-<style>
+<style scoped>
+.chart-wrapper {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+}
 
+.calendar {
+    width: 800px;
+    height: 400px;
+}
 </style>
