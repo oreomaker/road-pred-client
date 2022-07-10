@@ -7,9 +7,10 @@
             <el-aside width="200px">
                 <BaseSide></BaseSide>
             </el-aside>
+
             <el-main>
-                user manage
-            </el-main>
+                <UserInfoTable></UserInfoTable>
+            </el-main>   
         </el-container>
     </el-container>
 </template>
