@@ -1,6 +1,6 @@
 <template>
 	<div class="block text-center">
-		<el-carousel>
+		<el-carousel loop>
 			<el-carousel-item v-for="item in imageList" :key="item.name">
 				<img :src="getImageUrl(item.name)" style="height: 100%;" />
 			</el-carousel-item>

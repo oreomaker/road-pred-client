@@ -3,7 +3,7 @@ import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { Lock, User } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
-import { useAuthStore } from "~/stores/store";
+import { useAuthStore } from "~/store";
 import axios from "axios";
 
 const router = useRouter();

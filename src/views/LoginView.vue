@@ -1,28 +1,33 @@
 <template>
-    <div class="login-wrapper">
-        <LoginForm class="form" />
-        <ImageSwiper class="swiper" />
-    </div>
+    <base-layout>
+        <div class="login-wrapper">
+            <LoginForm class="form" />
+            <ImageSwiper class="swiper" />
+        </div>
+    </base-layout>
 </template>
+
 <script>
-export default {};
+export default {
+
+};
 </script>
+
 <style scoped>
 .login-wrapper {
     height: 300px;
-    width: 700px;
     display: flex;
-    justify-content: flex-start;
-    position: absolute;
-    top: 200px;
+    justify-content: center;
+    align-content: center;
 }
 
-.form {
-    width: 400px;
+.ep-main {
+    display: flex;
+    justify-content: center;
 }
 
 .swiper {
     width: 300px;
-    height: 100%;
+    height: 300px;
 }
 </style>

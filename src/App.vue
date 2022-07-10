@@ -15,6 +15,10 @@ body {
     background-color: aliceblue;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 #app {
     height: 100%;
     display: flex;
