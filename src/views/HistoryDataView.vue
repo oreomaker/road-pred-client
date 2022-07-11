@@ -1,17 +1,7 @@
 <template>
-    <el-container>
-        <el-header>
-            <base-header />
-        </el-header>
-        <el-container class="body-container">
-            <el-aside width="200px">
-                <BaseSide></BaseSide>
-            </el-aside>
-            <el-main>
-                <CalendarChart></CalendarChart>
-            </el-main>
-        </el-container>
-    </el-container>
+    <base-layout>
+        <CalendarChart></CalendarChart>        
+    </base-layout>
 </template>
 
 <script setup lang="ts">

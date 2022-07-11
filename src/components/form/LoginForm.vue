@@ -139,7 +139,15 @@ const getImg = () => {
 		})
 }
 onMounted(() => {
-	getImg()
+	getImg();
+	axios
+		.post('/api/login/')
+		.then(function (res) {
+			console.log(res)
+		})
+		.catch(function (err) {
+			console.log(err)
+		})
 })
 
 const getEmailValidator = () => {
