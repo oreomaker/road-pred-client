@@ -210,7 +210,7 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	// if ('username' in res.data) {
 	// 	store.isLogin = true;
 	// }
-	
+	store.isLogin = true;
 	router.push('/home/map');
 };
 
