@@ -1,10 +1,10 @@
 <template>
-    <el-card class="map-container">
+    <div class="map-container">
         <div id="localMap"></div>
-    </el-card>
+    </div>
 </template>
 
-<script setup lang="ts">
+<script setup >
 import { ref, reactive, onMounted } from 'vue';
 import initBingMap from '~/api/initMap.js'
 

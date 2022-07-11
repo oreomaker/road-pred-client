@@ -4,7 +4,7 @@
             <base-header />
         </el-header>
         <el-container class="body-container">
-            <el-aside width="200px" v-if="isLogin">
+            <el-aside width="200px">
                 <BaseSide></BaseSide>
             </el-aside>
             <el-main>
