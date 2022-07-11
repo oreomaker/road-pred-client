@@ -133,7 +133,7 @@ const arrayBufferToBase64 = (buffer) => {
 }
 const getImg = () => {
 	axios
-		.get('/api/users/generate/', {
+		.get('/api/user/former/generate/', {
 			responseType: 'arraybuffer'
 		})
 		.then(function (res) {
@@ -150,7 +150,7 @@ onMounted(() => {
 const getEmailValidator = () => {
 	if (form.email !== "") {
 		axios
-			.post('/api/users/send/', {
+			.post('/api/user/former/send/', {
 				to_email: form.email
 			})
 			.then(function (res) {
@@ -169,7 +169,7 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	console.log(form)
 	// send username and pwd
 	axios
-		.post('/api/users/register/', form,)
+		.post('/api/user/former/register/', form,)
 		.then(function (res) {
 			console.log(res)
 		})

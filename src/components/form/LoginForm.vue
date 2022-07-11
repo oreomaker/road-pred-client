@@ -128,7 +128,7 @@ const arrayBufferToBase64 = (buffer: Iterable<number>) => {
 }
 const getImg = () => {
 	axios
-		.get('/api/users/generate/', {
+		.get('/api/user/former/generate/', {
 			responseType: 'arraybuffer'
 		})
 		.then(function (res) {
@@ -139,13 +139,21 @@ const getImg = () => {
 		})
 }
 onMounted(() => {
-	getImg()
+	getImg();
+	axios
+		.post('/api/user/former/login/')
+		.then(function (res) {
+			console.log(res)
+		})
+		.catch(function (err) {
+			console.log(err)
+		})
 })
 
 const getEmailValidator = () => {
 	if (form.email !== "") {
 		axios
-			.post('/api/users/send/', {
+			.post('/api/user/former/send/', {
 				to_email: form.email
 			})
 			.then(function (res) {

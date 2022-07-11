@@ -1,15 +1,15 @@
 <template>
-    <div class="chart-wrapper calendar">
+    <div class="chart-wrapper">
         <div class="month-container">
             <span class="monthTip">请选择时间：</span>
-            <el-date-picker v-model="year_month" type="month" placeholder="Pick a month" :default-value="year_month" />
+            <el-date-picker v-model="year_month" type="month" placeholder="选择一个月份" :default-value="year_month" />
         </div>
-        <v-charts :option="option" @click="handleDayClicked"></v-charts>
+        <v-charts :option="option" @click="handleDayClicked" class="chart"></v-charts>
     </div>
 </template>
   
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed, onMounted, onBeforeMount } from "vue";
 import * as echarts from 'echarts/core';
 import {
     CalendarComponent,
@@ -21,7 +21,7 @@ import { HeatmapChart, BarChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import VCharts from 'vue-echarts';
-import { computed } from "@vue/reactivity";
+import emmiter from '~/store/bus';
 
 echarts.use([
     CalendarComponent,
@@ -35,13 +35,19 @@ echarts.use([
 ]);
 
 //下拉菜单日期值
-let year_month = ref(new Date(2022, 0, 1))
+const year_month = ref(new Date(2017, 0, 1))
+const year = computed(() => {
+    return year_month.value.getFullYear();
+})
+const month = computed(() => {
+    return (year_month.value.getMonth() + 1);
+})
 
 //取得日历图数据
 // TODO: 更改成请求数据
-function getCalendarData(year: string, month: string) {
-    let date = +echarts.number.parseDate(+year + '-' + +month + '-01');
-    let end = +echarts.number.parseDate(+year + '-' + (+month + 1) + '-01');
+function getCalendarData(year: number, month: number) {
+    let date = +echarts.number.parseDate(year + '-' + month + '-01');
+    let end = +echarts.number.parseDate(year + '-' + (month + 1) + '-01');
     let dayTime = 24 * 60 * 60 * 1000;
     let data = [];
     for (let time = date; time < end; time += dayTime) {
@@ -53,23 +59,13 @@ function getCalendarData(year: string, month: string) {
     return data;
 }
 const calendarData = computed(() => {
-    return getCalendarData(year_month.value.getFullYear().toString(), (year_month.value.getMonth() + 1).toString());
-})
-
-// 取得柱状图数据
-// TODO: 更改成请求数据
-function getChartsDate(year: string, month: string, day: string) {
-    return [+year / 100, +month, +day, 30]
-}
-let day = ref('1')
-const chartsData = computed(() => {
-    return getChartsDate(year_month.value.getFullYear().toString(), (year_month.value.getMonth() + 1).toString(), day.value);
+    return getCalendarData(year.value, month.value);
 })
 
 //日历图显示的月份
-let range = ref(year_month.value.getFullYear().toString() + '-' + (year_month.value.getMonth() + 1).toString());
+const range = ref(year.value + '-' + month.value);
 watch(year_month, () => {
-    range.value = year_month.value.getFullYear().toString() + '-' + (year_month.value.getMonth() + 1).toString();
+    range.value = year.value + '-' + month.value;
 })
 
 //echarts配置项
@@ -93,70 +89,56 @@ const option = ref({
         monthLabel: {
             show: false
         },
-        cellSize: 40,
+        cellSize: 45,
         range: range,
         top: 50,
-        left: 50
+        left: 'center',
     },
-    xAxis: [
-        {
-            type: 'category',
-            data: [1, 2, 3, 4],
-            gridIndex: 0
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value',
-            gridIndex: 0
-        }
-    ],
-    grid: [
-        { left: '55%', bottom: '60%' },
-    ],
-    series: [
-        {
-            type: 'heatmap',
-            coordinateSystem: 'calendar',
-            label: {
-                show: true,
-                formatter: function (params: { value: unknown[]; }) {
-                    return echarts.format.formatTime('dd', params.value[0]);
-                },
-                offset: [-10, -10],
-                fontSize: 14
+    series: {
+        type: 'heatmap',
+        coordinateSystem: 'calendar',
+        label: {
+            show: true,
+            formatter: function (params: { value: unknown[]; }) {
+                return echarts.format.formatTime('dd', params.value[0]);
             },
-            data: calendarData
+            offset: [-10, -10],
+            fontSize: 14
         },
-        {
-            type: 'bar',
-            data: chartsData,
-            showBackground: true,
-            xAxisIndex: 0,
-            yAxisIndex: 0,
-        }
-    ]
+        data: calendarData
+    }
 });
 
 //日期点击处理函数
-function handleDayClicked(params: { componentSubType: string; data: (string | number | Date)[]; }) {
+const handleDayClicked = (params) => {
     if (params.componentSubType === 'heatmap') {
-        day.value = new Date(params.data[0]).getDate().toString()
-        console.log(day.value)
+        let day = new Date(params.data[0]).getDate()
+        emmiter.emit('changeDay', {
+            year: year.value, 
+            month: month.value, 
+            day: day,
+        })
     }
 }
 
 </script>
 
 <style scoped>
-.chart-wrapper {
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+.month-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.month-container span {
+    line-height: 32px;
 }
 
-.calendar {
-    width: 800px;
-    height: 400px;
+.chart-wrapper {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
+    width: 400px;
+    height: 380px;
 }
+
 </style>

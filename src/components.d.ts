@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BarChart: typeof import('./components/charts/BarChart.vue')['default']
     BaseHeader: typeof import('./components/layouts/BaseHeader.vue')['default']
     BaseLayout: typeof import('./components/layouts/BaseLayout.vue')['default']
     BaseSide: typeof import('./components/layouts/BaseSide.vue')['default']
@@ -43,6 +44,7 @@ declare module '@vue/runtime-core' {
     ImageSwiper: typeof import('./components/static/ImageSwiper.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     LoginForm: typeof import('./components/form/LoginForm.vue')['default']
+    MapChart: typeof import('./components/charts/MapChart.vue')['default']
     PredHistoryDrawer: typeof import('./components/drawers/PredHistoryDrawer.vue')['default']
     PredHistoryTable: typeof import('./components/tables/PredHistoryTable.vue')['default']
     RegisterForm: typeof import('./components/form/RegisterForm.vue')['default']
