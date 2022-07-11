@@ -27,23 +27,26 @@ let clientList: UserInfo[] = [];
 // const clientData = ref<Client[]>(clientList);
 
 const clientData = ref<UserInfo[]>([
-    {phone: '111',
-    name: 'name',
-    identity_number: 'identity',
-    address: 'addres',
-    client_level: 1,
+    {
+        phone: '111',
+        name: 'name',
+        identity_number: 'identity',
+        address: 'addres',
+        client_level: 1,
     },
-    {phone: '111',
-    name: 'name',
-    identity_number: 'identity',
-    address: 'addres',
-    client_level: 1,
+    {
+        phone: '111',
+        name: 'name',
+        identity_number: 'identity',
+        address: 'addres',
+        client_level: 1,
     },
-    {phone: '111',
-    name: 'name',
-    identity_number: 'identity',
-    address: 'addres',
-    client_level: 1,
+    {
+        phone: '111',
+        name: 'name',
+        identity_number: 'identity',
+        address: 'addres',
+        client_level: 1,
     },
 ]);
 

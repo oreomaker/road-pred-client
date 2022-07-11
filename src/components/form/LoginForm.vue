@@ -43,7 +43,7 @@
 		</el-tab-pane>
 		<el-tab-pane label="使用邮箱登录" name="0">
 			<el-form ref="formRef" :model="form" :rules="rules" label-position="left" label-width="95px">
-				<el-form-item label="用户名" prop="name">
+				<el-form-item label="邮箱" prop="name">
 					<el-input 
 						v-model="form.name" 
 						placeholder="请输入邮箱"
@@ -117,7 +117,7 @@ const rules = reactive<FormRules>({
 });
 
 const img_url = ref("")
-const arrayBufferToBase64 = (buffer) => {
+const arrayBufferToBase64 = (buffer: Iterable<number>) => {
 	var binary = ''
 	var bytes = new Uint8Array(buffer)
 	var len = bytes.byteLength
