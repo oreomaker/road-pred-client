@@ -19,13 +19,8 @@ export default {
     display: flex;
     justify-content: center;
     align-content: center;
+    margin-top: 200px;
 }
-
-.ep-main {
-    display: flex;
-    justify-content: center;
-}
-
 .swiper {
     width: 300px;
     height: 300px;

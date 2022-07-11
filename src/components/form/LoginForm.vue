@@ -43,11 +43,11 @@
 		</el-tab-pane>
 		<el-tab-pane label="使用邮箱登录" name="0">
 			<el-form ref="formRef" :model="form" :rules="rules" label-position="left" label-width="95px">
-				<el-form-item label="用户名" prop="name">
+				<el-form-item label="邮箱" prop="name">
 					<el-input 
 						v-model="form.name" 
 						placeholder="请输入邮箱"
-						prefix-icon="User"
+						prefix-icon="Message"
 					></el-input>
 				</el-form-item>
 				<el-form-item label="邮箱验证码" prop="validator">
@@ -117,7 +117,7 @@ const rules = reactive<FormRules>({
 });
 
 const img_url = ref("")
-const arrayBufferToBase64 = (buffer) => {
+const arrayBufferToBase64 = (buffer: Iterable<number>) => {
 	var binary = ''
 	var bytes = new Uint8Array(buffer)
 	var len = bytes.byteLength
@@ -194,24 +194,24 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	console.log(data)
 
 	// send username and pwd
-	const res = axios
-		.post('/api/users/login/', data)
-		.then(function (res) {
-			console.log(res)
-		})
-		.catch(function (err) {
-			console.log(err)
-		})
+	// const res = axios
+	// 	.post('/api/users/login/', data)
+	// 	.then(function (res) {
+	// 		console.log(res)
+	// 	})
+	// 	.catch(function (err) {
+	// 		console.log(err)
+	// 	})
 
 	// console.log(form)
-	console.log(res)
+	// console.log(res)
 
 	// redirect
 	// if ('username' in res.data) {
 	// 	store.isLogin = true;
 	// }
 	
-	// router.push('/home/map');
+	router.push('/home/map');
 };
 
 const register = () => {

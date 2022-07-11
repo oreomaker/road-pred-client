@@ -49,7 +49,12 @@ const router = createRouter({
         {
             path: '/home/user',
             name: 'user-manage',
-            component: () => import("../views/UserManageView.vue")
+            component: () => import("../views/admin/UserManageView.vue")
+        },
+        {
+            path: '/pred-history',
+            name: 'pred-history',
+            component: () => import("../views/PredHistoryView.vue")
         }
     ],
 });

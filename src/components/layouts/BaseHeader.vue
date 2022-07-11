@@ -5,7 +5,7 @@
 			<h3>Road Accident Predict System</h3>
 		</div>
 		<!-- 水平一级菜单 -->
-		<div class="menu-container" v-if="isLogin">
+		<div class="menu-container" v-if="!isLogin">
 			<el-menu class="tab-menu" mode="horizontal" text-color="black" active-text-color="#3989fa"
 				:default-active="toIndex" @select="handleSelect">
 				<el-menu-item v-for="(item, index) in itemList" :index="item.path" :key="index" class="menu-item">
@@ -63,6 +63,7 @@ const isLogin = ref(false)
 const itemList = [
 	{ path: "/home", title: "首页" },
 	{ path: "/userinfo", title: "个人信息" },
+	{ path: "/pred-history", title: "预测历史" },
 	{ path: "/about", title: "关于" },
 ];
 
@@ -71,7 +72,7 @@ const toIndex = computed(() => {
 	return "/" + route.path.split("/")[1];
 })
 
-const handleSelect = (path) => {
+const handleSelect = (path: string) => {
 	if(path == "/home"){
 		console.log(path);
 		router.push({
@@ -85,7 +86,7 @@ const handleSelect = (path) => {
 	}
 }
 
-const handleCommand = (command) => {
+const handleCommand = (command: string) => {
 	if (command == "log-out") {
 		// clear the auth store
 		useAuthStore().token = "";
@@ -127,6 +128,10 @@ onMounted(() => {
 
 .logo h3 {
 	line-height: 100%;
+}
+
+.menu-container {
+	width: 600px;
 }
 
 .menu-item {
