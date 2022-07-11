@@ -186,24 +186,24 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	console.log(data)
 
 	// send username and pwd
-	const res = axios
-		.post('/api/users/login/', data)
-		.then(function (res) {
-			console.log(res)
-		})
-		.catch(function (err) {
-			console.log(err)
-		})
+	// const res = axios
+	// 	.post('/api/users/login/', data)
+	// 	.then(function (res) {
+	// 		console.log(res)
+	// 	})
+	// 	.catch(function (err) {
+	// 		console.log(err)
+	// 	})
 
 	// console.log(form)
-	console.log(res)
+	// console.log(res)
 
 	// redirect
 	// if ('username' in res.data) {
 	// 	store.isLogin = true;
 	// }
 	
-	// router.push('/home/map');
+	router.push('/home/map');
 };
 
 const register = () => {
