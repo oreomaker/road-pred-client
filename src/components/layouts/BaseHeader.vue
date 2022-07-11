@@ -5,7 +5,7 @@
 			<h3>Road Accident Predict System</h3>
 		</div>
 		<!-- 水平一级菜单 -->
-		<div class="menu-container" v-if="!isLogin">
+		<div class="menu-container" v-if="isLogin">
 			<el-menu class="tab-menu" mode="horizontal" text-color="black" active-text-color="#3989fa"
 				:default-active="toIndex" @select="handleSelect">
 				<el-menu-item v-for="(item, index) in itemList" :index="item.path" :key="index" class="menu-item">
@@ -108,12 +108,12 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped>
 .header {
 	height: 60px;
 	width: 100%;
 	background-color: white;
-	padding: 0 10px;
+	padding: 0px;
 	display: flex;
 	align-items: center;
 	justify-content: left;
@@ -131,7 +131,7 @@ onMounted(() => {
 }
 
 .menu-container {
-	width: 600px;
+	min-width: 450px;
 }
 
 .menu-item {

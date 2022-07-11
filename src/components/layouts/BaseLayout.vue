@@ -4,7 +4,7 @@
             <base-header />
         </el-header>
         <el-container class="body-container">
-            <el-aside width="200px">
+            <el-aside width="200px" v-if="isLogin">
                 <BaseSide></BaseSide>
             </el-aside>
             <el-main>
@@ -25,7 +25,7 @@ const isLogin = computed(() => {
 })
 </script>
 
-<style>
+<style scoped>
 .ep-header {
     padding: 0;
 }
