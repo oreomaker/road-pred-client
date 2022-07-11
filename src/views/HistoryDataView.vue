@@ -1,6 +1,10 @@
 <template>
     <base-layout>
-        <CalendarChart></CalendarChart>        
+        <map-chart></map-chart>
+        <div class="right-container">
+            <CalendarChart></CalendarChart>
+            <bar-chart></bar-chart>
+        </div>
     </base-layout>
 </template>
 
@@ -9,20 +13,20 @@
 </script>
 
 <style>
-.ep-header {
-    padding: 0;
-}
-
 .ep-main {
     display: flex;
-    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
 }
 
-.month-container {
-    padding: 20px 0;
+.map-container {
+    width: 1000px;
 }
 
-.monthTip {
-    margin-left: 40px;
+.right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-around;
 }
 </style>

@@ -5,6 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BarChart: typeof import('./components/charts/BarChart.vue')['default']
     BaseHeader: typeof import('./components/layouts/BaseHeader.vue')['default']
     BaseLayout: typeof import('./components/layouts/BaseLayout.vue')['default']
     BaseSide: typeof import('./components/layouts/BaseSide.vue')['default']
@@ -12,6 +13,7 @@ declare module '@vue/runtime-core' {
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
@@ -36,6 +38,7 @@ declare module '@vue/runtime-core' {
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     ImageSwiper: typeof import('./components/static/ImageSwiper.vue')['default']
     LoginForm: typeof import('./components/form/LoginForm.vue')['default']
+    MapChart: typeof import('./components/charts/MapChart.vue')['default']
     RegisterForm: typeof import('./components/form/RegisterForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
