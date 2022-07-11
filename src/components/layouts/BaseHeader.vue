@@ -71,7 +71,7 @@ const toIndex = computed(() => {
 	return "/" + route.path.split("/")[1];
 })
 
-const handleSelect = (path) => {
+const handleSelect = (path: string) => {
 	if(path == "/home"){
 		console.log(path);
 		router.push({
@@ -85,7 +85,7 @@ const handleSelect = (path) => {
 	}
 }
 
-const handleCommand = (command) => {
+const handleCommand = (command: string) => {
 	if (command == "log-out") {
 		// clear the auth store
 		useAuthStore().token = "";

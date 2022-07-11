@@ -47,7 +47,7 @@
 					<el-input 
 						v-model="form.name" 
 						placeholder="请输入邮箱"
-						prefix-icon="User"
+						prefix-icon="Message"
 					></el-input>
 				</el-form-item>
 				<el-form-item label="邮箱验证码" prop="validator">

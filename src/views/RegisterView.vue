@@ -9,6 +9,7 @@ export default {};
     position: absolute;
     overflow-y: auto;
     margin: auto;
+    margin-top: 150px;
 }
 
 </style>
