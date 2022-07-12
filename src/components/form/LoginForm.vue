@@ -13,8 +13,10 @@
 					<div class="inline-form-item">
 						<el-input 
 							v-model="form.password" 
+							type="password"
 							placeholder="请输入密码"
 							prefix-icon="Lock"
+							show-password
 						></el-input>
 						<el-button @click="goToRegister" class="inline-form-item-suffix inline-button">忘记密码?</el-button>
 					</div>
@@ -104,7 +106,7 @@ const form = reactive({
 	email: "",
 	validator: "",
 	kaptcha: "",
-	is_staff: "0",
+	is_staff: 0,
 });
 
 const rules = reactive<FormRules>({
@@ -193,24 +195,23 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	console.log(data)
 
 	// send username and pwd
-	// const res = axios
-	// 	.post('/api/users/login/', data)
-	// 	.then(function (res) {
-	// 		console.log(res)
-	// 	})
-	// 	.catch(function (err) {
-	// 		console.log(err)
-	// 	})
-
-	// console.log(form)
-	// console.log(res)
-
-	// redirect
-	// if ('username' in res.data) {
-	// 	store.isLogin = true;
-	// }
-	store.isLogin = true;
-	router.push('/home/map');
+	const res = axios
+		.post('/api/user/former/login/', data)
+		.then(function (res) {
+			console.log(res)
+			if(res.data.code == 1){
+				store.token = res.data.data;
+				store.isLogin = true;
+				router.push('/home/map');
+			}
+			else {
+				alert(res.data.msg);
+			}
+		})
+		.catch(function (err) {
+			console.log(err);
+			alert('服务器错误，请稍后尝试');
+		})
 };
 
 const register = () => {
