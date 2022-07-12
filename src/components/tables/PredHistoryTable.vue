@@ -1,57 +1,31 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useAuthStore } from "~/store";
 import axios from "axios";
 import type { PredHistory } from "~/api/models";
 
-const route = useRoute();
-const router = useRouter();
+const store = useAuthStore();
 
-const isLoading = ref(false);
+const isLoading = ref(true);
 let predHistoryList: PredHistory[] = [];
 
-// await axios({
-//     method: "get",
-//     url: "http://localhost:8000/clients/",
-// })
-//     .then(function (response) {
-//         console.log("client list");
-//         console.log(response.data.results);
-//         // isLoading.value = false;
-//         predHistoryList = response.data.results;
-//     })
-//     .catch(function (error) {
-//         console.log(error);
-//     });
+axios
+    .post('/api/result/myresult/', {
+        email: store.email,
+        username: store.username,
+    })
+    .then(function (res) {
+        console.log(res);
+        predHistoryList = res.data;
+        isLoading.value = false;
+    })
+    .catch(function (err) {
+        console.log(err)
+        alert('数据获取失败')
+    })
 
-// const predHistoryData = ref<PredHistory[]>(predHistoryList);
-// static data for test
-const predHistoryData = ref<PredHistory[]>([
-    {
-        id: 1,
-        request_time: "2022-07-07T00:01:16Z",
-        latitude: 47.67683029174805,
-        longitude: -122.1099624633789,
-        temperature: 70,
-        humidity: 40.0,
-        visibility: 7.0,
-        weather: 3,
-        dawn_dusk: 1,
-        severity: 3,
-    },
-    {
-        id: 2,
-        request_time: "2022-07-07T00:01:16Z",
-        latitude: 47.67683029174805,
-        longitude: -122.1099624633789,
-        temperature: 70,
-        humidity: 40.0,
-        visibility: 7.0,
-        weather: 3,
-        dawn_dusk: 1,
-        severity: 3,
-    },
-]);
+const predHistoryData = ref<PredHistory[]>(predHistoryList);
+
 const total = ref(predHistoryData.value.length);
 
 // operating panel
