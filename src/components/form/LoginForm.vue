@@ -88,7 +88,6 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import { Lock, User } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "~/store";
 import axios from "axios";
