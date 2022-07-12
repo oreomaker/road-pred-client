@@ -52,10 +52,11 @@ const clientData = ref<UserInfo[]>([
 
 const total = ref(clientData.value.length);
 
+// operating panel
+const emit = defineEmits(['edit']);
 const handleDetail = (id: number) => {
-    // TODO: redirect to info page
-    router.push(route.path + `/${id}`);
-};
+    emit('edit', id);
+}
 </script>
 
 <template>

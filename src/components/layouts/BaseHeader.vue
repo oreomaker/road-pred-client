@@ -5,7 +5,7 @@
 			<h3>Road Accident Predict System</h3>
 		</div>
 		<!-- 水平一级菜单 -->
-		<div class="menu-container" v-if="!isLogin">
+		<div class="menu-container" v-if="isLogin">
 			<el-menu class="tab-menu" mode="horizontal" text-color="black" active-text-color="#3989fa"
 				:default-active="toIndex" @select="handleSelect">
 				<el-menu-item v-for="(item, index) in itemList" :index="item.path" :key="index" class="menu-item">
@@ -24,7 +24,7 @@
 				<span class="el-dropdown-link">
 					&nbsp;
 					{{ username }}
-					<el-icon  v-if="isLogin">
+					<el-icon v-if="isLogin">
 						<ArrowDown />
 					</el-icon>
 				</span>
@@ -50,23 +50,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref,computed, onMounted } from "vue";
-import { useAuthStore } from "../../store";
+import { ref,computed } from "vue";
+import { useAuthStore } from "~/store";
 import { useRouter,useRoute } from "vue-router";
 
 const store = useAuthStore();
 const router = useRouter();
 const route = useRoute();
 
-const username = ref("");
-const isLogin = ref(false)
+// 用户名和登录状态使用computed
+const isLogin = computed(() => {
+    return store.isLogin;
+})
+const username = computed(() => {
+    return store.username;
+})
+
+// 导航列表
 const itemList = [
 	{ path: "/home", title: "首页" },
 	{ path: "/userinfo", title: "个人信息" },
 	{ path: "/pred-history", title: "预测历史" },
 	{ path: "/about", title: "关于" },
 ];
-
+// 索引
 const toIndex = computed(() => {
 	// 根据路径绑定到对应的一级菜单，防止页面刷新重新跳回第一个
 	return "/" + route.path.split("/")[1];
@@ -89,8 +96,9 @@ const handleSelect = (path: string) => {
 const handleCommand = (command: string) => {
 	if (command == "log-out") {
 		// clear the auth store
-		useAuthStore().token = "";
-		useAuthStore().role = "";
+		store.token = "";
+		store.isLogin = false;
+		store.username = "";
 		router.push({
 			path: "/login",
 		});
@@ -101,19 +109,14 @@ const handleCommand = (command: string) => {
 		});
 	}
 };
-
-onMounted(() => {
-	username.value = store.username;
-	isLogin.value = store.isLogin;
-})
 </script>
 
-<style>
+<style scoped>
 .header {
 	height: 60px;
 	width: 100%;
 	background-color: white;
-	padding: 0 10px;
+	padding: 0px;
 	display: flex;
 	align-items: center;
 	justify-content: left;
@@ -131,7 +134,7 @@ onMounted(() => {
 }
 
 .menu-container {
-	width: 600px;
+	min-width: 450px;
 }
 
 .menu-item {

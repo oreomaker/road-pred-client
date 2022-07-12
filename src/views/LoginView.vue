@@ -21,6 +21,7 @@ export default {
     align-content: center;
     margin-top: 200px;
 }
+
 .swiper {
     width: 300px;
     height: 300px;

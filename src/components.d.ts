@@ -53,6 +53,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     UserInfoCard: typeof import('./components/cards/UserInfoCard.vue')['default']
     UserInfoTable: typeof import('./components/tables/UserInfoTable.vue')['default']
+    UserManageDrawer: typeof import('./components/drawers/UserManageDrawer.vue')['default']
     ValidateCaptcha: typeof import('./components/static/ValidateCaptcha.vue')['default']
   }
 }

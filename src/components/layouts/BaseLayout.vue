@@ -25,7 +25,7 @@ const isLogin = computed(() => {
 })
 </script>
 
-<style>
+<style scoped>
 .ep-header {
     padding: 0;
 }
