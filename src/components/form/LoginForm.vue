@@ -31,12 +31,13 @@
 						<img :src="img_url" @click="getImg" class="inline-form-item-suffix"/>
 					</div>
 				</el-form-item>
-				<el-form-item label="职责" prop="is_staff">
+				<!-- 请求时添加默认值，通过结果判断，不参与实际功能 -->
+				<!-- <el-form-item label="职责" prop="is_staff">
 					<el-radio-group v-model="form.is_staff">
 						<el-radio label="0">普通用户</el-radio>
 						<el-radio label="1">管理员</el-radio>
 					</el-radio-group>
-				</el-form-item>
+				</el-form-item> -->
 				<div class="btn-container">
 					<el-button type="primary" @click="submitForm(formRef)">登录</el-button>
 					<el-button @click="register">注册</el-button>
@@ -72,12 +73,13 @@
 						<img :src="img_url" @click="getImg" class="inline-form-item-suffix"/>
 					</div>
 				</el-form-item>
-				<el-form-item label="职责" prop="is_staff">
+				<!-- 请求时添加默认值，通过结果判断，不参与实际功能 -->
+				<!-- <el-form-item label="职责" prop="is_staff">
 					<el-radio-group v-model="form.is_staff">
 						<el-radio label="0">普通用户</el-radio>
 						<el-radio label="1">管理员</el-radio>
 					</el-radio-group>
-				</el-form-item>
+				</el-form-item> -->
 				<div class="btn-container">
 					<el-button type="primary" @click="submitForm(formRef)">登录</el-button>
 					<el-button @click="register">注册</el-button>
@@ -141,14 +143,6 @@ const getImg = () => {
 }
 onMounted(() => {
 	getImg();
-	axios
-		.post('/api/user/former/login/')
-		.then(function (res) {
-			console.log(res)
-		})
-		.catch(function (err) {
-			console.log(err)
-		})
 })
 
 const getEmailValidator = () => {
@@ -181,7 +175,6 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 	if (form.flag === "0") {
 		data.flag = +form.flag;   // 登录方式，1为“姓名加密码”，0为“邮箱”
     	data.email = form.name;    // 姓名
-    	data.is_staff =  +form.is_staff;    // 角色
     	data.kaptcha = form.kaptcha;    // 用户输入的图形验证码
     	data.validator = form.validator;    // 用户输入的邮箱验证码
 	}
@@ -189,7 +182,6 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 		data.flag = +form.flag;   // 登录方式，1为“姓名加密码”，0为“邮箱”
     	data.name = form.name;    // 姓名
     	data.password = form.password;    // 密码
-    	data.is_staff =  +form.is_staff;    // 角色
     	data.kaptcha = form.kaptcha;    // 用户输入的图形验证码
 	}
 	console.log(data)
@@ -200,7 +192,13 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 		.then(function (res) {
 			console.log(res)
 			if(res.data.code == 1){
-				store.token = res.data.data;
+				store.id = res.data.data.id;
+				store.token = res.data.token;
+				store.username = res.data.data.username;
+				store.first_name = res.data.data.first_name;
+				store.last_name = res.data.data.last_name;
+				store.email = res.data.data.email;
+				store.is_staff = res.data.data.is_staff;
 				store.isLogin = true;
 				router.push('/home/map');
 			}
