@@ -1,6 +1,6 @@
 <template>
 	<!-- 左侧二级菜单栏的组件封装 -->
-	<div class="sidebar" v-if="isLogin">
+	<div class="sidebar">
 		<el-menu class="sidebar-el-menu" :default-active="toIndex" background-color="#fff" text-color="black" router>
 			<el-menu-item index="map">
 				<el-icon>
@@ -36,10 +36,6 @@ const toIndex = computed({
 	get() {
 		return route.path.split("/")[2];
 	},
-})
-
-const isLogin = computed(() => {
-    return store.isLogin;
 })
 </script>
 
