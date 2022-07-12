@@ -14,7 +14,7 @@
 				</el-icon>
 				<template #title> &nbsp;历史数据 </template>
 			</el-menu-item>
-			<el-menu-item index="user">
+			<el-menu-item index="user" v-if="store.is_staff">
 				<el-icon>
 					<UserFilled />
 				</el-icon>

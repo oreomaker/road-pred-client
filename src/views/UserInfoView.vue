@@ -4,12 +4,19 @@
             <base-header />
         </el-header>
         <el-main>
-            <UserInfoCard></UserInfoCard>
+            <UserInfoCard @edit="handleEdit"></UserInfoCard>
+            <UserManageDrawer ref="drawer"></UserManageDrawer>
         </el-main>
     </el-container>
 </template>
-<script>
-
+<script setup lang="ts">
+import { ref } from "vue";
+// drawer子组件事件
+const drawer = ref({ show(id: number) { } });
+const handleEdit = (id: number) => {
+    console.log('emit');
+    drawer.value.show(id);
+}
 </script>
 <style scoped>
 .ep-header {

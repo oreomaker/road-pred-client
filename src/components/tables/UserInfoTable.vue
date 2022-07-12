@@ -28,25 +28,14 @@ let clientList: UserInfo[] = [];
 
 const clientData = ref<UserInfo[]>([
     {
-        phone: '111',
-        name: 'name',
-        identity_number: 'identity',
-        address: 'addres',
-        client_level: 1,
-    },
-    {
-        phone: '111',
-        name: 'name',
-        identity_number: 'identity',
-        address: 'addres',
-        client_level: 1,
-    },
-    {
-        phone: '111',
-        name: 'name',
-        identity_number: 'identity',
-        address: 'addres',
-        client_level: 1,
+        id: 0,
+        username: 'the elder',
+        first_name: 'jiang',
+        last_name: '',
+        email: '',
+        is_staff: false,
+        date_joined: '1926',
+        last_login: 'infinity',
     },
 ]);
 
@@ -64,14 +53,15 @@ const handleDetail = (id: number) => {
         <!-- v-loading="isLoading" -->
         <el-table v-loading="isLoading" :data="clientData" :default-sort="{ prop: 'name', order: 'ascending' }" stripe
             border>
-            <el-table-column label="用户姓名" prop="name"></el-table-column>
-            <el-table-column label="用户手机号" prop="phone"></el-table-column>
-            <el-table-column label="用户地址" prop="address"></el-table-column>
-            <el-table-column label="用户身份证号" prop="identity_number"></el-table-column>
-            <el-table-column label="用户等级" prop="client_level" sortable></el-table-column>
+            <el-table-column label="ID" prop="id" sortable></el-table-column>
+            <el-table-column label="用户名" prop="username"></el-table-column>
+            <el-table-column label="电子邮箱" prop="email"></el-table-column>
+            <el-table-column label="类别" prop="is_staff"></el-table-column>
+            <el-table-column label="注册日期" prop="date_joined" sortable></el-table-column>
+            <el-table-column label="上次登录" prop="last_login" sortable></el-table-column>
             <el-table-column label="操作">
                 <template #default="scope">
-                    <el-button type="text" size="small" @click="handleDetail(scope.row.phone)">
+                    <el-button type="text" size="small" @click="handleDetail(scope.row.id)">
                         编辑
                         <el-icon>
                             <i-ep-edit />

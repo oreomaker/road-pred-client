@@ -10,10 +10,7 @@ const isLoading = ref(true);
 let predHistoryList: PredHistory[] = [];
 
 axios
-    .post('/api/result/myresult/', {
-        email: store.email,
-        username: store.username,
-    })
+    .get('/api/result/myresult/?token=' + store.token)
     .then(function (res) {
         console.log(res);
         predHistoryList = res.data;

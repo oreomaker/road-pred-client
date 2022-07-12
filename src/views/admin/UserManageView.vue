@@ -22,7 +22,6 @@ import { ref } from "vue";
 const drawer = ref({ show(id: number) { } });
 const handleEdit = (id: number) => {
     console.log('emit');
-    console.log(id);
     drawer.value.show(id);
 }
 </script>

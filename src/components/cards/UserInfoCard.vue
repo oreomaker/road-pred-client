@@ -6,44 +6,75 @@ import type { UserInfo } from "~/api/models";
 
 const store = useAuthStore();
 
+const userData = reactive<UserInfo>({
+    id: 0,
+    username: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    is_staff: false,
+    date_joined: '',
+    last_login: '',
+});
+
 axios
-    .get('/api/result/myresult/?' + store.token)
+    .get('/api/user/latter/' + store.id + '/?token=' + store.token)
     .then(function (res) {
         console.log(res);
+        if (res.data.code == 1) {
+            userData.id = res.data.data.id;
+            userData.username = res.data.data.username;
+            userData.first_name = res.data.data.first_name;
+            userData.last_name = res.data.data.last_name;
+            userData.email = res.data.data.email;
+            userData.is_staff = res.data.data.is_staff;
+            userData.date_joined = res.data.data.date_joined;
+            userData.last_login = res.data.data.last_login;
+        }
+        else {
+            alert('数据获取失败')
+        }
     })
     .catch(function (err) {
         console.log(err)
         alert('数据获取失败')
     })
 
-const userData = reactive<UserInfo>({
-    name: "某客户",
-    phone: "13888888888",
-    address: "某地址",
-    client_level: 1,
-    identity_number: "123456789012345678",
-});
+const { id, username, email, is_staff, date_joined, last_login } = toRefs(userData);
 
-const { name, phone, address, client_level, identity_number } = toRefs(userData);
+const emit = defineEmits(['edit']);
+const handleDetail = (id: number) => {
+    emit('edit', id);
+}
 </script>
 
 <template>
     <el-card>
         <el-descriptions title="用户信息" :column="3" border>
-            <el-descriptions-item label="姓名" :span="1">{{
-                    name
+            <template #extra>
+                <el-button @click="handleDetail(id)" size="small">
+                    <el-icon>
+                        <Edit />
+                    </el-icon>修改
+                </el-button>
+            </template>
+            <el-descriptions-item label="ID" :span="1">{{
+                    id
             }}</el-descriptions-item>
-            <el-descriptions-item label="电话" :span="2">{{
-                    phone
+            <el-descriptions-item label="用户名" :span="2">{{
+                    username
             }}</el-descriptions-item>
-            <el-descriptions-item label="客户等级" :span="1">{{
-                    client_level
+            <el-descriptions-item label="类别" :span="1">{{
+                    is_staff ? '管理员' : '普通用户'
             }}</el-descriptions-item>
-            <el-descriptions-item label="身份证号" :span="2">{{
-                    identity_number
+            <el-descriptions-item label="电子邮箱" :span="2">{{
+                    email
             }}</el-descriptions-item>
-            <el-descriptions-item label="地址" :span="3">{{
-                    address
+            <el-descriptions-item label="注册日期" :span="3">{{
+                    date_joined
+            }}</el-descriptions-item>
+            <el-descriptions-item label="上次登录" :span="3">{{
+                    last_login
             }}</el-descriptions-item>
         </el-descriptions>
     </el-card>

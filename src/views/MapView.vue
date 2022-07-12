@@ -51,13 +51,12 @@ export default {
             directionsManager: null,
         }
     },
-    created() {
-        let _this = this;
+    mounted() {
         initBingMap.init()
             .then((Microsoft) => {
                 console.log(Microsoft)
                 console.log("加载成功...")
-                _this.initMap();
+                this.initMap();
             })
     },
     methods: {
