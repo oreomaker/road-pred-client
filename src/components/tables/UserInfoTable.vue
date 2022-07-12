@@ -1,34 +1,27 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import axios from "axios";
-import type { UserInfo } from "~/api/models";
+import type { Account } from "~/api/models";
 import { useAuthStore } from "~/store";
 
 const store = useAuthStore();
 const isLoading = ref(true);
-let userList: UserInfo[] = [];
 
-axios
-    .get('/api/user/latter/?token=' + store.token)
-    .then(function (res) {
-        console.log(res);
-        if (res.data.code == 1) {
-            userList = res.data;
-            isLoading.value = false;
-        }
-        else {
-            alert(res.data.msg);
-            isLoading.value = false;
-        }
-    })
-    .catch(function (err) {
-        console.log(err)
-        alert('数据获取失败')
-    })
-
-const userData = ref<UserInfo[]>(userList);
-
+const userData = ref<Account[]>([]);
 const total = ref(userData.value.length);
+onMounted(() => {
+    axios
+        .get('/api/user/latter/?token=' + store.token)
+        .then(function (res) {
+            console.log(res);
+            isLoading.value = false;
+            userData.value = res.data.results;
+        })
+        .catch(function (err) {
+            console.log(err)
+            alert('数据获取失败')
+        })
+});
 
 // operating panel
 const emit = defineEmits(['edit']);
