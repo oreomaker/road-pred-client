@@ -43,8 +43,8 @@ const total = ref(clientData.value.length);
 
 // operating panel
 const emit = defineEmits(['edit']);
-const handleDetail = (id: number) => {
-    emit('edit', id);
+const handleDetail = (id: number, username: string, first_name: string, last_name: string) => {
+    emit('edit', id, username, first_name, last_name);
 }
 </script>
 
@@ -61,7 +61,7 @@ const handleDetail = (id: number) => {
             <el-table-column label="上次登录" prop="last_login" sortable></el-table-column>
             <el-table-column label="操作">
                 <template #default="scope">
-                    <el-button type="text" size="small" @click="handleDetail(scope.row.id)">
+                    <el-button type="text" size="small" @click="handleDetail(scope.row.id, scope.row.username, scope.row.first_name, scope.row.last_name)">
                         编辑
                         <el-icon>
                             <i-ep-edit />

@@ -40,11 +40,11 @@ axios
         alert('数据获取失败')
     })
 
-const { id, username, email, is_staff, date_joined, last_login } = toRefs(userData);
+const { id, username, email, is_staff, date_joined, last_login, first_name, last_name } = toRefs(userData);
 
 const emit = defineEmits(['edit']);
 const handleDetail = (id: number) => {
-    emit('edit', id);
+    emit('edit', id, username.value, first_name.value, last_name.value);
 }
 </script>
 
@@ -63,6 +63,12 @@ const handleDetail = (id: number) => {
             }}</el-descriptions-item>
             <el-descriptions-item label="用户名" :span="2">{{
                     username
+            }}</el-descriptions-item>
+            <el-descriptions-item label="First Name" :span="1">{{
+                    first_name
+            }}</el-descriptions-item>
+            <el-descriptions-item label="Last Name" :span="2">{{
+                    last_name
             }}</el-descriptions-item>
             <el-descriptions-item label="类别" :span="1">{{
                     is_staff ? '管理员' : '普通用户'

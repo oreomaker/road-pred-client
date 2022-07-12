@@ -4,7 +4,7 @@
             <base-header />
         </el-header>
         <el-container class="body-container">
-            <el-aside width="200px" v-if="isLogin">
+            <el-aside width="200px">
                 <BaseSide></BaseSide>
             </el-aside>
             <el-main>
@@ -15,14 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref,computed } from 'vue';
-import { useAuthStore } from '~/store';
 
-const store = useAuthStore();
-
-const isLogin = computed(() => {
-    return store.isLogin;
-})
 </script>
 
 <style scoped>

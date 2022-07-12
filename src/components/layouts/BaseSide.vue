@@ -1,6 +1,6 @@
 <template>
 	<!-- 左侧二级菜单栏的组件封装 -->
-	<div class="sidebar">
+	<div class="sidebar" v-if="isLogin">
 		<el-menu class="sidebar-el-menu" :default-active="toIndex" background-color="#fff" text-color="black" router>
 			<el-menu-item index="map">
 				<el-icon>
@@ -27,13 +27,19 @@
 <script setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
+import { useAuthStore } from '~/store';
 
+const store = useAuthStore();
 const route = useRoute();
 
 const toIndex = computed({
 	get() {
 		return route.path.split("/")[2];
 	},
+})
+
+const isLogin = computed(() => {
+    return store.isLogin;
 })
 </script>
 
