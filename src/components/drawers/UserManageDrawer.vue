@@ -1,10 +1,15 @@
 <template>
     <el-drawer v-model="drawer" title="操作" direction="rtl" :before-close="handleClose">
-        {{ rowId }}
+        <h2>用户名</h2>
+        <el-input v-model="userName" placeholder="Please input" />
+        <h2>Fist Name</h2>
+        <el-input v-model="firstName" placeholder="Please input" />
+        <h2>Last Name</h2>
+        <el-input v-model="lastName" placeholder="Please input" />
         <template #footer>
             <div style="flex: auto">
-                <el-button @click="cancelClick">cancel</el-button>
-                <el-button type="primary" @click="confirmClick">confirm</el-button>
+                <el-button @click="cancelClick">取消</el-button>
+                <el-button type="primary" @click="confirmClick">修改</el-button>
             </div>
         </template>
     </el-drawer>
@@ -12,44 +17,55 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import axios from "axios";
+import { useAuthStore } from "~/store";
+
+const store = useAuthStore();
 
 const drawer = ref(false);
 const rowId = ref(0);
+const userName = ref('');
+const firstName = ref('');
+const lastName = ref('');
 
 // 将show方法向父组件开放
-const show = (id: number) => {
+const show = (id: number, username: string, first_name: string, last_name: string) => {
     drawer.value = true;
     rowId.value = id;
+    userName.value = username;
+    firstName.value = first_name;
+    lastName.value = last_name;
 }
-defineExpose({show});
+defineExpose({ show });
 
 const handleClose = (done: () => void) => {
-    //   ElMessageBox.confirm('Are you sure you want to close this?')
-    //     .then(() => {
-    //       done()
-    //     })
-    //     .catch(() => {
-    //       // catch error
-    //     })
-    drawer.value = false
-    console.log('close');
+    let res = confirm('信息未修改，退出修改？');
+    if (res) {
+        drawer.value = false
+        console.log('close');
+    }
 }
 function cancelClick() {
     drawer.value = false
     console.log('cancel');
 }
 function confirmClick() {
-    // ElMessageBox.confirm(`Are you confirm to chose ${radio1.value} ?`)
-    //     .then(() => {
-    //         drawer2.value = false
-    //     })
-    //     .catch(() => {
-    //         // catch error
-    //     })
+    axios
+        .put('/api/user/latter/' + rowId.value + '/?token=' + store.token, {
+            username: userName.value,
+            first_name: firstName.value,
+            last_name: lastName.value,
+        })
+        .then(function (res) {
+            console.log(res);
+            alert(res.data.msg);
+        })
+        .catch(function (err) {
+            console.log(err)
+            alert('修改失败')
+        })
     drawer.value = false
     console.log('confirm');
 }
 </script>
 <style>
-    
 </style>

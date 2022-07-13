@@ -14,7 +14,7 @@
 				</el-icon>
 				<template #title> &nbsp;历史数据 </template>
 			</el-menu-item>
-			<el-menu-item index="user">
+			<el-menu-item index="user" v-if="store.is_staff">
 				<el-icon>
 					<UserFilled />
 				</el-icon>
@@ -27,7 +27,9 @@
 <script setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
+import { useAuthStore } from '~/store';
 
+const store = useAuthStore();
 const route = useRoute();
 
 const toIndex = computed({

@@ -7,7 +7,7 @@ export default {};
 <style scoped>
 .form {
     height: 300px;
-    width: 400px;
+    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

@@ -19,11 +19,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 // drawer子组件事件
-const drawer = ref({ show(id: number) { } });
-const handleEdit = (id: number) => {
+const drawer = ref({ show(id: number, username: string, first_name: string, last_name: string) { } });
+const handleEdit = (id: number, username: string, first_name: string, last_name: string) => {
     console.log('emit');
-    console.log(id);
-    drawer.value.show(id);
+    drawer.value.show(id, username, first_name, last_name);
 }
 </script>
 
