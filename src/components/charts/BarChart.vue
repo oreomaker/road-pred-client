@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import * as echarts from 'echarts/core';
 import {
     TooltipComponent,
@@ -17,7 +17,7 @@ import { BarChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import VCharts from 'vue-echarts';
-import emmiter from '~/store/bus'
+import axios from "axios";
 
 echarts.use([
     TitleComponent,
@@ -29,37 +29,63 @@ echarts.use([
     UniversalTransition
 ]);
 
-// 取得柱状图数据
-// TODO: 更改成请求数据
-const getChartsData = (year: number, month: number, day: number) => {
-    let rd1 = Math.floor(Math.random() * 100)
-    let rd2 = Math.floor(Math.random() * 100)
-    let rd3 = Math.floor(Math.random() * 100)
-    let rd4 = Math.floor(Math.random() * 100)
-    return [year / 1000 * rd1, month * rd2, day * rd3, 10 * rd4]
-}
-const year = ref(2017);
-const month = ref(1);
-const day = ref(1);
-const chartsData = computed(() => {
-    return getChartsData(year.value, month.value, day.value)
-});
-onBeforeMount(() => {
-    emmiter.on('changeDay', (e) => {
-        year.value = e.year;
-        month.value = e.month;
-        day.value = e.day;
-    })
+const props = defineProps({
+    year: {
+        require: true,
+        type: Number,
+    },
+    month: {
+        require: true,
+        type: Number,
+    },
+    day: {
+        require: true,
+        type: Number,
+    },
+    county: {
+        require: true,
+        type: String,
+    }
 })
+
+const date = computed(() => {
+    let month = props.month+'';
+    let day = props.day+'';
+    if (month.length === 1)
+        month = '0'+month;
+    if (day.length === 1)
+        day = '0'+day;
+    return props.year+'-'+month+'-'+day;
+})
+// 取得柱状图数据
+const getChartsData = () => {
+    axios
+    .post('/api/history/day/', {
+        county: props.county,
+        date: date.value,
+    })
+    .then((res) => {
+        // console.log(props.county)
+        // console.log(year+'-'+month+'-'+day)
+        // console.log(res);
+        option.value.series.data = res.data.msg;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
+watch([props], () => {getChartsData();});
+onMounted(() => {getChartsData();})
+
 const title = computed(() => {
-    return year.value + '年' + month.value + '月' + day.value + '日'; 
+    return props.year + '年' + props.month + '月' + props.day + '日'; 
 })
 
 //echarts配置项
 const option = ref({
     title: {
         text: title,
-        left: 'center',
+        left: '3',
         top: '10',
     },
     tooltip: {
@@ -77,7 +103,7 @@ const option = ref({
     },
     series: {
         type: 'bar',
-        data: chartsData,
+        data: [],
         showBackground: true,
         xAxisIndex: 0,
         yAxisIndex: 0,
@@ -87,11 +113,5 @@ const option = ref({
 </script>
 
 <style>
-.chart-wrapper {
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
-    width: 400px;
-    height: 330px;
-}
+
 </style>

@@ -4,9 +4,60 @@
     </div>
 </template>
 
-<script setup >
-import { ref, reactive, onMounted } from 'vue';
+<script setup lang="ts">
+import { ref, reactive, onMounted, computed, watch } from 'vue';
+import axios from 'axios';
 import initBingMap from '~/api/initMap.js'
+
+const props = defineProps({
+    year: {
+        type: Number,
+        require: true,
+    },
+    month: {
+        type: Number,
+        require: true,
+    },
+    day: {
+        type: Number,
+        default: 1
+    },
+    county: {
+        require: true,
+        type: String,
+    }
+})
+
+const date = computed(() => {
+    let month = props.month+'';
+    let day = props.day+'';
+    if (month.length === 1)
+        month = '0'+month;
+    if (day.length === 1)
+        day = '0'+day;
+    return props.year+'-'+month+'-'+day;
+})
+const getChartsData = () => {
+    axios
+    .post('/api/history/filter/', {
+        county: props.county,
+        time: date.value,
+        city: ''
+    })
+    .then((res) => {
+        console.log(props.county)
+        console.log(date.value)
+        console.log("pins:")
+        console.log(res);
+
+        addPins(res.data)
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
+watch([props], () => {getChartsData();});
+onMounted(() => {getChartsData();})
 
 let map = reactive({})
 const initMap = () => {
@@ -16,13 +67,25 @@ const initMap = () => {
     });
 }
 
+const addPins = (booms) => {
+    map.entities.clear();
+    for (let e of booms) {
+        let loc = new Microsoft.Maps.Location(e.latitude, e.longitude);
+    
+        var pin = new Microsoft.Maps.Pushpin(loc, {
+            color: 'red', // 纯色图钉
+        });
+        map.entities.push(pin);
+    }
+}
+
 onMounted(() => {
-    initBingMap.init()
+    initBingMap.initEnglish()
         .then((Microsoft) => {
             console.log(Microsoft)
             console.log("加载成功...")
             initMap();
-})
+    })
 })
 </script>
 
@@ -30,6 +93,9 @@ onMounted(() => {
 .map-container {
     width: 1000px;
     padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #localMap {

@@ -54,11 +54,11 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
-import { Action, FormInstance, FormRules } from "element-plus";
+import { FormInstance, FormRules } from "element-plus";
 import { Lock, User } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
-import { useAuthStore } from "~/store";
 import axios from "axios";
+import { throttle } from "lodash";
 
 const router = useRouter();
 
@@ -70,13 +70,14 @@ const form = reactive({
 	email: "", // 邮箱
 	img_code: "", // 用户输入的图片验证码
 	validator: "", // 用户输入的邮箱验证码
-	is_staff: 0, // （0，普通用户；1，管理员）
+	is_staff: "0", // （0，普通用户；1，管理员）
 });
 
 const rules = reactive<FormRules>({
 	name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
 	password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-	email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
+	email: [{ required: true, message: "请输入邮箱", trigger: "blur" },
+	{ type: 'email', message: '请输入正确邮箱格式', trigger: ['blur', 'change'], },],
 	role: [{ required: true, message: "请选择职责", trigger: "blur" }],
 	img_code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
 	validator: [{ required: true, message: "请输入验证码", trigger: "blur" }],
@@ -92,7 +93,7 @@ const arrayBufferToBase64 = (buffer: Iterable<number>) => {
 	}
 	return window.btoa(binary)
 }
-const getImg = () => {
+const getImg = throttle(function () {
 	axios
 		.get('/api/user/former/generate/', {
 			responseType: 'arraybuffer'
@@ -103,12 +104,12 @@ const getImg = () => {
 		.catch(function (err) {
 			console.log(err)
 		})
-}
+}, 2000)
 onMounted(() => {
 	getImg()
 })
 
-const getEmailValidator = () => {
+const getEmailValidator = throttle(function () {
 	if (form.email !== "") {
 		axios
 			.post('/api/user/former/send/', {
@@ -121,12 +122,10 @@ const getEmailValidator = () => {
 				console.log(err)
 			})
 	}
-}
+}, 5000);
 
-const submitForm = async (fromEl: FormInstance | undefined) => {
+const submitForm = throttle(async (fromEl: FormInstance | undefined) => {
 	if (!fromEl) return;
-	console.log('login');
-
 	console.log(form)
 	// send username and pwd
 	axios
@@ -146,7 +145,7 @@ const submitForm = async (fromEl: FormInstance | undefined) => {
 			console.log(err)
 			alert('服务器错误，请稍后尝试');
 		})
-};
+}, 2000);
 
 const goBack = () => {
 	router.go(-1);
