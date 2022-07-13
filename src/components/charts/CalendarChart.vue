@@ -65,10 +65,6 @@ function getCalendarData() {
             ]);
         }
         option.value.series.data = data;
-        console.log("*"+props.county+"*")
-        console.log(props.year)
-        console.log(props.month)
-        console.log(data);
     })
     .catch((err) => {
         console.log(err);
@@ -133,7 +129,6 @@ const emit = defineEmits(['change']);
 const handleDayClicked = (params) => {
     if (params.componentSubType === 'heatmap') {
         let day = new Date(params.data[0]).getDate()
-        console.log(day)
         emit('change', day);
     }
 }

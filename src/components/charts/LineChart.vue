@@ -84,9 +84,6 @@ const getChartsData = () => {
 
         option.value.xAxis.data = dataX;
         option.value.series.data = dataY;
-        console.log(res)
-        console.log(dataX)
-        console.log(dataY)
     })
     .catch((err) => {
         console.log(err)

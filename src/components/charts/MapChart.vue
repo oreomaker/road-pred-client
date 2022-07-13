@@ -82,8 +82,6 @@ const addPins = (booms) => {
 onMounted(() => {
     initBingMap.initEnglish()
         .then((Microsoft) => {
-            console.log(Microsoft)
-            console.log("加载成功...")
             initMap();
     })
 })

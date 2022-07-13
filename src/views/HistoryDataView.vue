@@ -127,7 +127,7 @@ const changeDay = (newDay: number) => {
 .data-item-container {
     margin: 7px auto;
 }
-.month-container span {
+.data-item-container span {
     line-height: 32px;
 }
 
