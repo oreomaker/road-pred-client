@@ -63,7 +63,7 @@ onMounted(() => {
         callback: () => {
             const options = {maxResults: 5};
             const manager = new Microsoft.Maps.AutosuggestManager(options);
-            manager.attachAutosuggest('#searchBox', '#searchBoxContainer', (suggestionResult) => {
+            manager.attachAutosuggest('#searchBox', '#searchBoxContainer', (suggestionResult: { address: { district: string; }; }) => {
                 console.log(suggestionResult);
                 county.value = suggestionResult.address.district;
             });
