@@ -42,12 +42,15 @@ const getChartsData = () => {
     .post('/api/history/filter/', {
         county: props.county,
         time: date.value,
+        city: ''
     })
     .then((res) => {
+        console.log(props.county)
+        console.log(date.value)
         console.log("pins:")
         console.log(res);
 
-        // addPins(res.data)
+        addPins(res.data)
     })
     .catch((err) => {
         console.log(err);
@@ -66,8 +69,8 @@ const initMap = () => {
 
 const addPins = (booms) => {
     map.entities.clear();
-    for (let e in booms) {
-        let loc = new Location(e.latitude, e.longitude);
+    for (let e of booms) {
+        let loc = new Microsoft.Maps.Location(e.latitude, e.longitude);
     
         var pin = new Microsoft.Maps.Pushpin(loc, {
             color: 'red', // 纯色图钉
@@ -77,7 +80,7 @@ const addPins = (booms) => {
 }
 
 onMounted(() => {
-    initBingMap.init()
+    initBingMap.initEnglish()
         .then((Microsoft) => {
             console.log(Microsoft)
             console.log("加载成功...")
