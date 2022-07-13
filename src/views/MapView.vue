@@ -53,10 +53,8 @@ export default {
     },
     created() {
         let _this = this;
-        initBingMap.init()
+        initBingMap.initEnglish()
             .then((Microsoft) => {
-                console.log(Microsoft)
-                console.log("加载成功...")
                 _this.initMap();
             })
     },

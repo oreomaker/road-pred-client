@@ -1,15 +1,11 @@
 <template>
-    <div class="chart-wrapper">
-        <div class="month-container">
-            <span class="monthTip">请选择时间：</span>
-            <el-date-picker v-model="year_month" type="month" placeholder="选择一个月份" :default-value="year_month" />
-        </div>
+    <div class="calendar-wrapper">
         <v-charts :option="option" @click="handleDayClicked" class="chart"></v-charts>
     </div>
 </template>
   
 <script setup lang="ts">
-import { ref, watch, computed, onMounted, onBeforeMount } from "vue";
+import { ref, computed, watch, reactive, onMounted } from "vue";
 import * as echarts from 'echarts/core';
 import {
     CalendarComponent,
@@ -21,7 +17,7 @@ import { HeatmapChart, BarChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import VCharts from 'vue-echarts';
-import emmiter from '~/store/bus';
+import axios from "axios";
 
 echarts.use([
     CalendarComponent,
@@ -34,39 +30,60 @@ echarts.use([
     UniversalTransition
 ]);
 
-//下拉菜单日期值
-const year_month = ref(new Date(2017, 0, 1))
-const year = computed(() => {
-    return year_month.value.getFullYear();
-})
-const month = computed(() => {
-    return (year_month.value.getMonth() + 1);
+const props = defineProps({
+    year: {
+        require: true,
+        type: Number,
+    },
+    month: {
+        require: true,
+        type: Number,
+    },
+    county: {
+        require: true,
+        type: String,
+    }
 })
 
 //取得日历图数据
 // TODO: 更改成请求数据
-function getCalendarData(year: number, month: number) {
-    let date = +echarts.number.parseDate(year + '-' + month + '-01');
-    let end = +echarts.number.parseDate(year + '-' + (month + 1) + '-01');
-    let dayTime = 24 * 60 * 60 * 1000;
-    let data = [];
-    for (let time = date; time < end; time += dayTime) {
-        data.push([
-            echarts.format.formatTime('yyyy-MM-dd', time),
-            Math.floor(Math.random() * 100)
-        ]);
-    }
-    return data;
+function getCalendarData() {
+    let data = []
+    axios
+    .post('/api/history/month/', {
+        county: props.county,
+        year: props.year+"",
+        month: props.month+"",
+    })
+    .then((res) => {
+        let date = +echarts.number.parseDate(props.year + '-' + props.month + '-01');
+        let end = +echarts.number.parseDate(props.year + '-' + (props.month + 1) + '-01');
+        let dayTime = 24 * 60 * 60 * 1000;
+        for (let time = date, i = 0; time < end; time += dayTime, i++) {
+            data.push([
+                echarts.format.formatTime('yyyy-MM-dd', time),
+                res.data.msg[i]
+            ]);
+        }
+        option.value.series.data = data;
+        console.log("*"+props.county+"*")
+        console.log(props.year)
+        console.log(props.month)
+        console.log(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    })   
 }
-const calendarData = computed(() => {
-    return getCalendarData(year.value, month.value);
-})
 
 //日历图显示的月份
-const range = ref(year.value + '-' + month.value);
-watch(year_month, () => {
-    range.value = year.value + '-' + month.value;
+const range = ref(props.year.valueOf() + '-' + props.month.valueOf());
+watch([props], () => {
+    range.value = props.year.valueOf() + '-' + props.month.valueOf()
+    option.value.calendar.range = props.year.valueOf() + '-' + props.month.valueOf()
+    getCalendarData();
 })
+onMounted(() => {getCalendarData();})
 
 //echarts配置项
 const option = ref({
@@ -76,6 +93,9 @@ const option = ref({
     visualMap: {
         show: false
     },
+    grid: {
+        top: '5'
+    },
     calendar: {
         orient: 'vertical',
         yearLabel: {
@@ -84,14 +104,14 @@ const option = ref({
         dayLabel: {
             firstDay: 1,
             nameMap: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            margin: 20
+            margin: 5
         },
         monthLabel: {
             show: false
         },
-        cellSize: 45,
-        range: range,
-        top: 50,
+        cellSize: 40,
+        range: range.value,
+        top: 28,
         left: 'center',
     },
     series: {
@@ -105,19 +125,17 @@ const option = ref({
             offset: [-10, -10],
             fontSize: 14
         },
-        data: calendarData
+        data: []
     }
 });
 
+const emit = defineEmits(['change']);
 //日期点击处理函数
 const handleDayClicked = (params) => {
     if (params.componentSubType === 'heatmap') {
         let day = new Date(params.data[0]).getDate()
-        emmiter.emit('changeDay', {
-            year: year.value, 
-            month: month.value, 
-            day: day,
-        })
+        console.log(day)
+        emit('change', day);
     }
 }
 
@@ -127,18 +145,14 @@ const handleDayClicked = (params) => {
 .month-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .month-container span {
     line-height: 32px;
 }
 
-.chart-wrapper {
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);;
-    width: 400px;
-    height: 380px;
+.calendar-wrapper {
+    height: 280px;
 }
 
 </style>

@@ -70,7 +70,7 @@ const form = reactive({
 	email: "", // 邮箱
 	img_code: "", // 用户输入的图片验证码
 	validator: "", // 用户输入的邮箱验证码
-	is_staff: 0, // （0，普通用户；1，管理员）
+	is_staff: "0", // （0，普通用户；1，管理员）
 });
 
 const rules = reactive<FormRules>({

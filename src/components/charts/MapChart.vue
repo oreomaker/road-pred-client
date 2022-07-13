@@ -4,9 +4,57 @@
     </div>
 </template>
 
-<script setup >
-import { ref, reactive, onMounted } from 'vue';
+<script setup lang="ts">
+import { ref, reactive, onMounted, computed, watch } from 'vue';
+import axios from 'axios';
 import initBingMap from '~/api/initMap.js'
+
+const props = defineProps({
+    year: {
+        type: Number,
+        require: true,
+    },
+    month: {
+        type: Number,
+        require: true,
+    },
+    day: {
+        type: Number,
+        default: 1
+    },
+    county: {
+        require: true,
+        type: String,
+    }
+})
+
+const date = computed(() => {
+    let month = props.month+'';
+    let day = props.day+'';
+    if (month.length === 1)
+        month = '0'+month;
+    if (day.length === 1)
+        day = '0'+day;
+    return props.year+'-'+month+'-'+day;
+})
+const getChartsData = () => {
+    axios
+    .post('/api/history/filter/', {
+        county: props.county,
+        time: date.value,
+    })
+    .then((res) => {
+        console.log("pins:")
+        console.log(res);
+
+        // addPins(res.data)
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
+watch([props], () => {getChartsData();});
+onMounted(() => {getChartsData();})
 
 let map = reactive({})
 const initMap = () => {
@@ -16,13 +64,25 @@ const initMap = () => {
     });
 }
 
+const addPins = (booms) => {
+    map.entities.clear();
+    for (let e in booms) {
+        let loc = new Location(e.latitude, e.longitude);
+    
+        var pin = new Microsoft.Maps.Pushpin(loc, {
+            color: 'red', // 纯色图钉
+        });
+        map.entities.push(pin);
+    }
+}
+
 onMounted(() => {
     initBingMap.init()
         .then((Microsoft) => {
             console.log(Microsoft)
             console.log("加载成功...")
             initMap();
-})
+    })
 })
 </script>
 

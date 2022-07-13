@@ -108,7 +108,7 @@ const form = reactive({
 	email: "",
 	validator: "",
 	kaptcha: "",
-	is_staff: 0,
+	is_staff: "0",
 });
 
 const rules = reactive<FormRules>({
