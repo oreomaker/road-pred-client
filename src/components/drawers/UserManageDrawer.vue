@@ -38,7 +38,7 @@ const show = (id: number, username: string, first_name: string, last_name: strin
 defineExpose({ show });
 
 const handleClose = (done: () => void) => {
-    let res = confirm('信息未修改，退出修改？');
+    let res = confirm('信息未提交，退出修改？');
     if (res) {
         drawer.value = false
         console.log('close');

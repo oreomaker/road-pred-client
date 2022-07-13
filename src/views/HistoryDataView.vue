@@ -27,21 +27,23 @@
                     ></el-date-picker>
                 </div>
             </div>
-            <div class="chart-container">
+            <div class="chart-container" id="middle-chart">
                 <CalendarChart
                     :year="year"
                     :month="month"
                     :county="county"
                     @change="changeDay"
+                    style="width: 50%;"
                 ></CalendarChart>
-            </div>
-            <div class="chart-container">
                 <bar-chart
                     :year="year"
                     :month="month"
                     :day="day"
                     :county="county"
+                    style="width: 50%;"
                 ></bar-chart>
+            </div>
+            <div class="chart-container" id="line-chart"> 
                 <line-chart
                     :year="year"
                     :month="month"
@@ -64,7 +66,7 @@ onMounted(() => {
         callback: () => {
             const options = {maxResults: 5};
             const manager = new Microsoft.Maps.AutosuggestManager(options);
-            manager.attachAutosuggest('#searchBox', '#searchBoxContainer', (suggestionResult) => {
+            manager.attachAutosuggest('#searchBox', '#searchBoxContainer', (suggestionResult: { address: { district: string; }; }) => {
                 console.log(suggestionResult);
                 county.value = suggestionResult.address.district.replace(' County', '');
             });
@@ -94,7 +96,7 @@ const changeDay = (newDay: number) => {
 }
 </script>
 
-<style>
+<style scop>
 .ep-main {
     display: flex;
     justify-content: space-around;
@@ -102,21 +104,24 @@ const changeDay = (newDay: number) => {
 }
 
 .map-container {
-    width: 1000px;
+    width: 60%;
+    margin-right: 20px;
 }
 
 .right-container {
+    width: 40%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-content: space-around;
 }
 
 .chart-container {
-    width: 400px;
+    width: 100%;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 .chart-wrapper {
@@ -125,7 +130,14 @@ const changeDay = (newDay: number) => {
 }
 
 .data-item-container {
+    width: 100%;
     margin: 7px auto;
+    display: flex;
+    justify-content: center;
+}
+#line-chart {
+    height: 400px;
+    justify-content: space-evenly;
 }
 .data-item-container span {
     line-height: 32px;
