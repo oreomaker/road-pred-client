@@ -46,6 +46,7 @@
                     :year="year"
                     :month="month"
                     :day="day"
+                    :county="county"
                 ></line-chart>
             </div>
         </div>
@@ -65,7 +66,7 @@ onMounted(() => {
             const manager = new Microsoft.Maps.AutosuggestManager(options);
             manager.attachAutosuggest('#searchBox', '#searchBoxContainer', (suggestionResult: { address: { district: string; }; }) => {
                 console.log(suggestionResult);
-                county.value = suggestionResult.address.district;
+                county.value = suggestionResult.address.district.replace(' County', '');
             });
         }
     });

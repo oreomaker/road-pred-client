@@ -126,11 +126,11 @@ const option = ref({
                 color: '#333'
             },
             data: [
-                { yAxis: 50 },
-                { yAxis: 100 },
-                { yAxis: 150 },
-                { yAxis: 200 },
-                { yAxis: 300 },
+                { yAxis: 5 },
+                { yAxis: 10 },
+                { yAxis: 15 },
+                { yAxis: 20 },
+                { yAxis: 25 },
             ]
         }
     }

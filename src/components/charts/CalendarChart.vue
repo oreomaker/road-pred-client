@@ -46,7 +46,6 @@ const props = defineProps({
 })
 
 //取得日历图数据
-// TODO: 更改成请求数据
 function getCalendarData() {
     let data = []
     axios
