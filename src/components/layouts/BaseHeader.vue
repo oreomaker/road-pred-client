@@ -98,7 +98,12 @@ const handleCommand = (command: string) => {
 		// clear the auth store
 		store.token = "";
 		store.isLogin = false;
-		store.username = "";
+		store.username = "请先登录";
+		store.id = 0;
+        store.first_name = "";
+        store.last_name = "";
+        store.is_staff = false;
+        store.email = "";
 		router.push({
 			path: "/login",
 		});
