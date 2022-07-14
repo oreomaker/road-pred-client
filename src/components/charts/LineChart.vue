@@ -1,5 +1,5 @@
 <template>
-    <div class="chart-wrapper">
+    <div id="line-canvas">
         <v-charts :option="option" class="chart"></v-charts>
     </div>
 </template>
@@ -134,6 +134,8 @@ const option = ref({
 })
 </script>
 
-<style>
-
+<style scoped>
+#line-canvas {
+    width: 100%;
+}
 </style>

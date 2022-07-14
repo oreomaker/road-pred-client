@@ -111,7 +111,7 @@ const changeDay = (newDay: number) => {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;
-    height: 460px;
+    height: 480px;
     justify-content: space-evenly;
     background-color: 0;
 }

@@ -6,6 +6,7 @@
         <div class="right-container">
             <el-card class="level-pred-container">
                 <template #header>
+                    <el-icon><Stopwatch /></el-icon>&nbsp;
                     <span>单点事故等级预测</span>
                 </template>
                 <div class="data-item-container">
@@ -22,7 +23,7 @@
                 </div>
                 <div class="data-item-container">
                     <el-button @click="getPredictResult" type="primary">预测等级</el-button>
-                    <el-button @click="clearPins" type="primary">清除标点</el-button>
+                    <el-button @click="clearPins">清除标点</el-button>
                 </div>
                 <div class="data-item-container">
                     <span>预测等级: {{ predResult }}</span>
@@ -30,6 +31,7 @@
             </el-card>
             <el-card class="navi-pred-container">
                 <template #header>
+                    <el-icon><MapLocation /></el-icon>&nbsp;
                     <span>高危地点预警</span>
                 </template>
                 <div class="data-item-container">
@@ -45,7 +47,7 @@
                     </el-select>
                 </div>
                 <div class="data-item-container">
-                    <el-button @click="drawNav" style="width: 156px;">显示预测结果</el-button>
+                    <el-button @click="drawNav"  type="primary" style="width: 156px;">显示预测结果</el-button>
                     <el-button @click="clearNav" style="width: 156px;">清空地图界面</el-button>
                 </div>
                 <div id="printoutPanel"></div>

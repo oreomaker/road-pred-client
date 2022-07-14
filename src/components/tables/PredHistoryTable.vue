@@ -33,7 +33,7 @@ const handleDetail = (id: number) => {
 <template>
     <el-card shadow="always" stripe border>
         <!-- v-loading="isLoading" -->
-        <el-table v-loading="isLoading" :data="predHistoryData" :default-sort="{ prop: 'name', order: 'ascending' }"
+        <el-table v-loading="isLoading" :data="predHistoryData" :default-sort="{ prop: 'name', order: 'ascending' }" height="800"
             stripe border>
             <el-table-column label="ID" prop="id"></el-table-column>
             <el-table-column label="请求时间" prop="request_time" sortable></el-table-column>
@@ -45,16 +45,6 @@ const handleDetail = (id: number) => {
             <el-table-column label="天气" prop="weather" sortable></el-table-column>
             <el-table-column label="昼夜" prop="dawn_dusk" sortable></el-table-column>
             <el-table-column label="事故严重程度" prop="severity" sortable></el-table-column>
-            <!-- <el-table-column label="操作">
-                <template #default="scope">
-                    <el-button type="text" size="small" @click="handleDetail(scope.row.id)">
-                        编辑
-                        <el-icon>
-                            <i-ep-edit />
-                        </el-icon>
-                    </el-button>
-                </template>
-            </el-table-column> -->
         </el-table>
         <el-pagination layout="prev, pager, next" :total="total" hide-on-single-page />
     </el-card>

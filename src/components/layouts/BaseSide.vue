@@ -10,7 +10,7 @@
 			</el-menu-item>
 			<el-menu-item index="history">
 				<el-icon>
-					<List />
+					<Histogram />
 				</el-icon>
 				<template #title> &nbsp;历史数据 </template>
 			</el-menu-item>

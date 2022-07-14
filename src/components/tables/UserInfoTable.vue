@@ -32,7 +32,7 @@ const handleDetail = (id: number, username: string, first_name: string, last_nam
 
 <template>
     <el-card shadow="always" stripe border>
-        <el-table v-loading="isLoading" :data="userData" :default-sort="{ prop: 'name', order: 'ascending' }" stripe
+        <el-table v-loading="isLoading" :data="userData" :default-sort="{ prop: 'name', order: 'ascending' }" stripe height="800"
             border>
             <el-table-column label="ID" prop="id" sortable></el-table-column>
             <el-table-column label="用户名" prop="username"></el-table-column>
