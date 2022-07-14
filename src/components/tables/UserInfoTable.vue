@@ -37,7 +37,7 @@ const handleDetail = (id: number, username: string, first_name: string, last_nam
             <el-table-column label="ID" prop="id" sortable></el-table-column>
             <el-table-column label="用户名" prop="username"></el-table-column>
             <el-table-column label="电子邮箱" prop="email"></el-table-column>
-            <el-table-column label="类别" prop="is_staff"></el-table-column>
+            <el-table-column label="管理员" prop="is_staff"></el-table-column>
             <el-table-column label="注册日期" prop="date_joined" sortable></el-table-column>
             <el-table-column label="上次登录" prop="last_login" sortable></el-table-column>
             <el-table-column label="操作">

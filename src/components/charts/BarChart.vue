@@ -1,6 +1,6 @@
 <template>
     <div class="chart-wrapper">
-        <v-charts :option="option" class="chart"></v-charts>
+        <v-charts style="width: 100%;" :option="option" class="chart"></v-charts>
     </div>
 </template>
 
@@ -112,6 +112,9 @@ const option = ref({
 });
 </script>
 
-<style>
-
+<style scoped>
+.chart-wrapper {
+    height: 280px;
+    width: 310px;
+}
 </style>

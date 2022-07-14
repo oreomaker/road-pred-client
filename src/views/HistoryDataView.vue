@@ -13,10 +13,10 @@
                     </el-date-picker>
                 </div>
             </div>
-            <div class="chart-container" id="middle-chart">
-                <CalendarChart :year="year" :month="month" :county="county" @change="changeDay" style="width: 50%;">
+            <div class="chart-container">
+                <CalendarChart :year="year" :month="month" :county="county" @change="changeDay">
                 </CalendarChart>
-                <bar-chart :year="year" :month="month" :day="day" :county="county" style="width: 50%;"></bar-chart>
+                <bar-chart :year="year" :month="month" :day="day" :county="county"></bar-chart>
             </div>
             <div id="line-chart">
                 <line-chart :year="year" :month="month" :day="day" :county="county"></line-chart>
@@ -69,11 +69,17 @@ const changeDay = (newDay: number) => {
 <style scoped>
 .map-container {
     width: 60%;
-    margin-right: 20px;
+    height: 100%;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .right-container {
     width: 40%;
+    height: 100%;
+    margin-left: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -86,6 +92,8 @@ const changeDay = (newDay: number) => {
     margin-bottom: 20px;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    overflow-x: auto;
 }
 
 .data-item-container {
@@ -97,6 +105,7 @@ const changeDay = (newDay: number) => {
 
 .data-item-container span {
     line-height: 35px;
+    width: 100px;
 }
 
 .county-input {
@@ -114,5 +123,6 @@ const changeDay = (newDay: number) => {
     height: 480px;
     justify-content: space-evenly;
     background-color: 0;
+    overflow-x: auto;
 }
 </style>

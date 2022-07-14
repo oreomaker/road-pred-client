@@ -123,10 +123,10 @@ const option = ref({
                 color: '#333'
             },
             data: [
-                { yAxis: 6 },
-                { yAxis: 12 },
-                { yAxis: 18 },
-                { yAxis: 24 },
+                { yAxis: 5 },
+                { yAxis: 10 },
+                { yAxis: 15 },
+                { yAxis: 20 },
             ]
         },
         lineStyle: {

@@ -1,6 +1,6 @@
 <template>
     <div class="calendar-wrapper">
-        <v-charts :option="option" @click="handleDayClicked" class="chart"></v-charts>
+        <v-charts style="width: 100%;" :option="option" @click="handleDayClicked" class="chart"></v-charts>
     </div>
 </template>
   
@@ -153,5 +153,6 @@ const handleDayClicked = (params) => {
 
 .calendar-wrapper {
     height: 280px;
+    width: 310px;
 }
 </style>

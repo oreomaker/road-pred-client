@@ -266,7 +266,7 @@ const addPins = (booms) => {
 .data-item-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
 }
 
 .data-item-container span {
@@ -279,7 +279,8 @@ const addPins = (booms) => {
 
 .level-pred-container {
     width: 100%;
-    height: 250px;
+    height: 260px;
+    overflow-y: auto;
 }
 
 .navi-pred-container {

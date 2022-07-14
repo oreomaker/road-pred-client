@@ -6,6 +6,11 @@
         <el-input v-model="firstName" placeholder="Please input" />
         <h2>Last Name</h2>
         <el-input v-model="lastName" placeholder="Please input" />
+        <div style="float: right; margin-top: 40px;">
+            <el-button @click="deleteUser" type="danger" size="small" plain>
+                注销用户
+            </el-button>
+        </div>
         <template #footer>
             <div style="flex: auto">
                 <el-button @click="cancelClick">取消</el-button>
@@ -65,6 +70,23 @@ function confirmClick() {
         })
     drawer.value = false
     console.log('confirm');
+}
+
+const deleteUser = () => {
+    let res = confirm('请确认是否删除，该操作不可恢复？');
+    if (res) {
+        axios
+            .delete('/api/user/latter/' + rowId.value + '/?token=' + store.token)
+            .then(function (res) {
+                console.log(res);
+                alert(res.data.msg);
+            })
+            .catch(function (err) {
+                console.log(err)
+                alert('删除失败')
+            })
+        drawer.value = false;
+    }
 }
 </script>
 <style>

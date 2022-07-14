@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, reactive, onMounted, computed, watch } from 'vue';
 import axios from 'axios';
 import initBingMap from '~/api/initMap.js'
@@ -87,15 +87,7 @@ onMounted(() => {
 })
 </script>
 
-<style>
-.map-container {
-    width: 1000px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
+<style scoped>
 #localMap {
     height: 100%;
 }

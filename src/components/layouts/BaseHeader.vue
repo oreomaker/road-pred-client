@@ -40,7 +40,7 @@
 							<el-icon>
 								<Switch />
 							</el-icon>
-							&nbsp;注销
+							&nbsp;退出登录
 						</el-dropdown-item>
 					</el-dropdown-menu>
 				</template>
