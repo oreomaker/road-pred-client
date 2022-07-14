@@ -78,7 +78,7 @@ watch([props], () => {getChartsData();});
 onMounted(() => {getChartsData();})
 
 const title = computed(() => {
-    return props.year + '年' + props.month + '月' + props.day + '日'; 
+    return props.year + '年' + props.month + '月' + props.day + '日' + '历史记录'; 
 })
 
 //echarts配置项

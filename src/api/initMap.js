@@ -39,7 +39,7 @@ export default {
         console.log("初始化bing地图脚本...");
         // bing map key
         const bingUesrKey = 'Aoqy2mXrSBghBTiA1u_uB6zmWqcHfdVJn4Jq7M7l87XgYlA7I0ZLSH5AlR19LzdY';
-        const BingMap_URL = 'http://www.bing.com/api/maps/mapcontrol?setLang=en&setMkt=en-US&callback=GetMap&key=' + bingUesrKey;
+        const BingMap_URL = 'http://www.bing.com/api/maps/mapcontrol?setLang=en-US&setMkt=en-US&callback=GetMap&key=' + bingUesrKey;
         return new Promise((resolve, reject) => {
             if (typeof Microsoft !== "undefined") {
                 resolve(Microsoft);

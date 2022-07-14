@@ -144,7 +144,11 @@ const clearPins = () => {
 let directionsManager = {}
 const drawNav = () => {
     console.log('test');
-    if (map.entities.getLength() === 2) {
+    if (timeRes.value === '') {
+        ElMessage.error('使用预测功能时，请先选择预测时间！')
+    } else if (map.entities.getLength() < 2) {
+        ElMessage.error('使用预测功能时，请先在地图上加入两个标点！')
+    } else if (map.entities.getLength() === 2) {
         Microsoft.Maps.loadModule('Microsoft.Maps.Directions', () => {
             directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
             // Set Route Mode to driving
