@@ -9,7 +9,7 @@
 					<div class="inline-form-item">
 						<el-input v-model="form.password" type="password" placeholder="请输入密码" prefix-icon="Lock"
 							show-password></el-input>
-						<el-button @click="goToRegister" class="inline-form-item-suffix inline-button">忘记密码?</el-button>
+						<el-button @click="changepw" class="inline-form-item-suffix inline-button">忘记密码?</el-button>
 					</div>
 				</el-form-item>
 				<el-form-item label="图片验证码" prop="kaptcha">
@@ -139,7 +139,9 @@ const getEmailValidator = throttle(function () {
 	}
 }, 5000);
 
-const goToRegister = () => {
+const changepw = () => {
+	console.log('dksfjk');
+	
 	router.push("/forget-pwd");
 }
 
