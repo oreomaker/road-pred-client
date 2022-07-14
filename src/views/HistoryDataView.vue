@@ -96,7 +96,7 @@ const changeDay = (newDay: number) => {
 }
 </script>
 
-<style scop>
+<style scoped>
 .ep-main {
     display: flex;
     justify-content: space-around;

@@ -1,65 +1,55 @@
 <template>
     <base-layout>
-        <div class="container">
-            <div class="map-container">
-                <div id="localMap"></div>
-            </div>
-            <div class="right-container">
-                <el-card class="level-pred-container">
-                    <div class="data-item-container">
-                        <span>请选择日期：</span>
-                        <el-date-picker 
-                            v-model="date" 
-                            type="date" 
-                            placeholder="选择一个日期" 
-                            format="YYYY-MM-DD"
-                        ></el-date-picker>
-                    </div>
-                    <div class="data-item-container">
-                        <span>请选择时间：</span>
-                        <el-radio-group v-model="dawn_dusk" class="day-night">
-                            <el-radio label="0">白天</el-radio>
-                            <el-radio label="1">夜晚</el-radio>
-                        </el-radio-group>
-                    </div>
-                    <div class="data-item-container">
-                        <el-button @click="getPredictResult" type="primary">预测等级</el-button>
-                        <el-button @click="clearPins" type="primary">清除标点</el-button>
-                    </div>
-                    <div class="data-item-container">
-                        <span>预测等级: {{ predResult }}</span>
-                    </div>
-                </el-card>
-                <el-card class="navi-pred-container">
-                    <div class="data-item-container">
-                        <span>选择预测的日期：</span>
-                        <el-select v-model="dateRes" placeholder="选择一个日期">
-                            <el-option
-                              v-for="date in dateOpts"
-                              :key="date.value"
-                              :label="date.label"
-                              :value="date.value"
-                            />
-                        </el-select>
-                    </div>
-                    <div class="data-item-container">
-                        <span>选择预测的时间：</span>
-                        <el-select v-model="timeRes" placeholder="选择一个时间">
-                            <el-option
-                              v-for="time in timeOpts"
-                              :key="time.value"
-                              :label="time.label"
-                              :value="time.value"
-                            />
-                        </el-select>
-                    </div>
-                    <div class="data-item-container">
-                        <el-button @click="drawNav" style="width: 156px;">显示预测结果</el-button>
-                        <el-button @click="clearNav" style="width: 156px;">清空地图界面</el-button> 
-                    </div>
-                    <div id="printoutPanel"></div>
-                </el-card>
-            </div>
+        <div class="map-container">
+            <div id="localMap"></div>
+        </div>
+        <div class="right-container">
+            <el-card class="level-pred-container">
+                <template #header>
+                    <span>单点事故等级预测</span>
+                </template>
+                <div class="data-item-container">
+                    <span>请选择日期：</span>
+                    <el-date-picker v-model="date" type="date" placeholder="选择一个日期" format="YYYY-MM-DD">
+                    </el-date-picker>
+                </div>
+                <div class="data-item-container">
+                    <span>请选择时间：</span>
+                    <el-radio-group v-model="dawn_dusk" class="day-night">
+                        <el-radio label="0">白天</el-radio>
+                        <el-radio label="1">夜晚</el-radio>
+                    </el-radio-group>
+                </div>
+                <div class="data-item-container">
+                    <el-button @click="getPredictResult" type="primary">预测等级</el-button>
+                    <el-button @click="clearPins" type="primary">清除标点</el-button>
+                </div>
+                <div class="data-item-container">
+                    <span>预测等级: {{ predResult }}</span>
+                </div>
+            </el-card>
+            <el-card class="navi-pred-container">
+                <template #header>
+                    <span>高危地点预警</span>
+                </template>
+                <div class="data-item-container">
+                    <span>选择预测的日期：</span>
+                    <el-select v-model="dateRes" placeholder="选择一个日期">
+                        <el-option v-for="date in dateOpts" :key="date.value" :label="date.label" :value="date.value" />
+                    </el-select>
+                </div>
+                <div class="data-item-container">
+                    <span>选择预测的时间：</span>
+                    <el-select v-model="timeRes" placeholder="选择一个时间">
+                        <el-option v-for="time in timeOpts" :key="time.value" :label="time.label" :value="time.value" />
+                    </el-select>
+                </div>
+                <div class="data-item-container">
+                    <el-button @click="drawNav" style="width: 156px;">显示预测结果</el-button>
+                    <el-button @click="clearNav" style="width: 156px;">清空地图界面</el-button>
+                </div>
+                <div id="printoutPanel"></div>
+            </el-card>
         </div>
     </base-layout>
 </template>
@@ -121,7 +111,7 @@ const clickMark = (e) => {
 
 const date = ref(new Date());
 const dateParam = computed(() => {
-    return date.value.getFullYear()+'-'+date.value.getMonth()+'-'+date.value.getDate();
+    return date.value.getFullYear() + '-' + date.value.getMonth() + '-' + date.value.getDate();
 })
 const dawn_dusk = ref('0');
 const predResult = ref(0);
@@ -132,19 +122,19 @@ const getPredictResult = () => {
     } else {
         const pin = map.entities.get(0);
         axios
-        .post('/api/result/predict/?token='+store.token, {
-            latitude: pin.geometry.y,
-            longitude: pin.geometry.x,
-            date: dateParam.value,
-            dawn_dusk: dawn_dusk.value,
-        })
-        .then((res) => {
-            console.log(res);
-            predResult.value = res.data.msg;
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            .post('/api/result/predict/?token=' + store.token, {
+                latitude: pin.geometry.y,
+                longitude: pin.geometry.x,
+                date: dateParam.value,
+                dawn_dusk: dawn_dusk.value,
+            })
+            .then((res) => {
+                console.log(res);
+                predResult.value = res.data.msg;
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 }
 const clearPins = () => {
@@ -184,8 +174,8 @@ const dateOpts = computed(() => {
     for (let i = 0; i < 5; i++) {
         let date = new Date(now.getTime() + dayTime * i);
         res.push({
-            value: i+'',
-            label: date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate(),
+            value: i + '',
+            label: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
         })
     }
     return res;
@@ -196,15 +186,15 @@ const timeOpts = computed(() => {
         const now = new Date();
         for (let i = now.getHours() + 1; i < 24; i++) {
             res.push({
-                value: i+'',
-                label: i+':00-'+(i+1)+':00',
+                value: i + '',
+                label: i + ':00-' + (i + 1) + ':00',
             })
         }
     } else {
         for (let i = 0; i < 24; i++) {
             res.push({
-                value: i+'',
-                label: i+':00-'+(i+1)+':00',
+                value: i + '',
+                label: i + ':00-' + (i + 1) + ':00',
             })
         }
     }
@@ -217,21 +207,21 @@ const getNavigate = () => {
     const pin1 = map.entities.get(0).getLocation()
 
     axios
-    .post('/api/result/navigate/?token=' + store.token, {
-        lat1: pin1.latitude,
-        lng1: pin1.longitude,
-        lat2: pin2.latitude,
-        lng2: pin2.longitude,
-        day: dateRes.value,
-        hour: timeRes.value,
-    })
-    .then((res) => {
-        console.log(res);
-        addPins(res.data.msg);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+        .post('/api/result/navigate/?token=' + store.token, {
+            lat1: pin1.latitude,
+            lng1: pin1.longitude,
+            lat2: pin2.latitude,
+            lng2: pin2.longitude,
+            day: dateRes.value,
+            hour: timeRes.value,
+        })
+        .then((res) => {
+            console.log(res);
+            addPins(res.data.msg);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 }
 const clearNav = () => {
     directionsManager.clearDisplay();
@@ -244,7 +234,7 @@ const addPins = (booms) => {
         let loc = new Microsoft.Maps.Location(i[0], i[1]);
 
         console.log(loc);
-    
+
         var pin = new Microsoft.Maps.Pushpin(loc, {
             color: 'red', // 纯色图钉
         });
@@ -254,27 +244,21 @@ const addPins = (booms) => {
 </script>
 
 <style scoped>
-.container {
-    height: 100%;
-    display: flex;
-    align-content: space-between;
-}
-
 .map-container {
-    width: 55%;
+    width: 60%;
     height: 100%;
     padding: 10px;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .right-container {
     width: 40%;
     height: 100%;
     margin-left: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .data-item-container {
@@ -282,6 +266,7 @@ const addPins = (booms) => {
     justify-content: center;
     margin-bottom: 10px;
 }
+
 .data-item-container span {
     line-height: 32px;
 }
@@ -291,10 +276,20 @@ const addPins = (booms) => {
 }
 
 .level-pred-container {
-    height: 210px;
+    width: 100%;
+    height: 250px;
 }
+
 .navi-pred-container {
+    width: 100%;
     margin-top: 20px;
-    height: 100%;
+}
+
+#printoutPanel {
+    display: flex;
+    justify-content: space-around;
+    height: 360px;
+    background-color: whitesmoke;
+    overflow-y: auto;
 }
 </style>
