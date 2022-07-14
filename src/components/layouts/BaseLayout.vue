@@ -28,4 +28,10 @@ const isLogin = computed(() => {
 .ep-header {
     padding: 0;
 }
+.ep-main {
+    width: 100%;
+    border: 0;
+    display: flex;
+    flex-direction: row;
+}
 </style>
