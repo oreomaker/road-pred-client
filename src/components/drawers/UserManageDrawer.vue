@@ -2,7 +2,7 @@
     <el-drawer v-model="drawer" title="操作" direction="rtl" :before-close="handleClose">
         <h2>用户名</h2>
         <el-input v-model="userName" placeholder="Please input" />
-        <h2>Fist Name</h2>
+        <h2>First Name</h2>
         <el-input v-model="firstName" placeholder="Please input" />
         <h2>Last Name</h2>
         <el-input v-model="lastName" placeholder="Please input" />
