@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 import * as echarts from 'echarts/core';
 import {
@@ -113,7 +113,16 @@ const option = ref({
     },
     yAxis: {},
     visualMap: {
-        show: false
+        show: false,
+        pieces: [
+          { gt: 0, lte: 5, color: '#93CE07' },
+          { gt: 5, lte: 10, color: '#FBDB0F' },
+          { gt: 10, lte: 15, color: '#FC7D02' },
+          { gt: 15, lte: 20, color: '#FD0100' },
+          { gt: 20, lte: 30, color: '#AA069F' },
+          { gt: 30, color: '#AC3B2A' }
+        ],
+        outOfRange: { color: '#999' }
     },
     series: {
         type: 'line',
