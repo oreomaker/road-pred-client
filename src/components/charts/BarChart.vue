@@ -78,15 +78,15 @@ watch([props], () => {getChartsData();});
 onMounted(() => {getChartsData();})
 
 const title = computed(() => {
-    return props.year + '年' + props.month + '月' + props.day + '日'; 
+    return props.year + '年' + props.month + '月' + props.day + '日 事故程度分布'; 
 })
 
 //echarts配置项
 const option = ref({
     title: {
         text: title,
-        left: '3',
-        top: '10',
+        left: 'center',
+        top: 0,
     },
     tooltip: {
         position: 'top',

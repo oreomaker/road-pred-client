@@ -49,26 +49,26 @@ const props = defineProps({
 function getCalendarData() {
     let data = []
     axios
-    .post('/api/history/month/', {
-        county: props.county,
-        year: props.year+"",
-        month: props.month+"",
-    })
-    .then((res) => {
-        let date = +echarts.number.parseDate(props.year + '-' + props.month + '-01');
-        let end = +echarts.number.parseDate(props.year + '-' + (props.month + 1) + '-01');
-        let dayTime = 24 * 60 * 60 * 1000;
-        for (let time = date, i = 0; time < end; time += dayTime, i++) {
-            data.push([
-                echarts.format.formatTime('yyyy-MM-dd', time),
-                res.data.msg[i]
-            ]);
-        }
-        option.value.series.data = data;
-    })
-    .catch((err) => {
-        console.log(err);
-    })   
+        .post('/api/history/month/', {
+            county: props.county,
+            year: props.year + "",
+            month: props.month + "",
+        })
+        .then((res) => {
+            let date = +echarts.number.parseDate(props.year + '-' + props.month + '-01');
+            let end = +echarts.number.parseDate(props.year + '-' + (props.month + 1) + '-01');
+            let dayTime = 24 * 60 * 60 * 1000;
+            for (let time = date, i = 0; time < end; time += dayTime, i++) {
+                data.push([
+                    echarts.format.formatTime('yyyy-MM-dd', time),
+                    res.data.msg[i]
+                ]);
+            }
+            option.value.series.data = data;
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 }
 
 //日历图显示的月份
@@ -78,10 +78,15 @@ watch([props], () => {
     option.value.calendar.range = props.year.valueOf() + '-' + props.month.valueOf()
     getCalendarData();
 })
-onMounted(() => {getCalendarData();})
+onMounted(() => { getCalendarData(); })
 
 //echarts配置项
 const option = ref({
+    title: {
+        top: 0,
+        left: 'center',
+        text: '当月事故统计'
+    },
     tooltip: {
         position: 'top',
     },
@@ -106,7 +111,7 @@ const option = ref({
         },
         cellSize: 40,
         range: range.value,
-        top: 28,
+        top: 50,
         left: 'center',
     },
     series: {
@@ -141,6 +146,7 @@ const handleDayClicked = (params) => {
     justify-content: center;
     margin-top: 10px;
 }
+
 .month-container span {
     line-height: 32px;
 }
@@ -148,5 +154,4 @@ const handleDayClicked = (params) => {
 .calendar-wrapper {
     height: 280px;
 }
-
 </style>
